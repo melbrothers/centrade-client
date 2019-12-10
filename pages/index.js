@@ -5,6 +5,9 @@ import Box from '@material-ui/core/Box';
 import MuiLink from '@material-ui/core/Link';
 import ProTip from '../src/ProTip';
 import Link from '../src/Link';
+import Header from '../components/Header';
+import './index.scss';
+
 
 function Copyright() {
   return (
@@ -21,7 +24,9 @@ function Copyright() {
 
 export default function Index() {
   return (
-    <Container maxWidth="sm">
+    <div className='full-width'>
+      <Header />
+
       <Box my={4}>
         <Typography variant="h4" component="h1" gutterBottom>
           Next.js example
@@ -32,6 +37,6 @@ export default function Index() {
         <ProTip />
         <Copyright />
       </Box>
-    </Container>
+    </div>
   );
 }

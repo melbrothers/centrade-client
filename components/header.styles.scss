@@ -1,0 +1,19 @@
+  
+  @import '../assets/variables';
+
+  .header {
+   
+    width: 100%;
+    min-height: 60px;
+    background-color: $dark-blue;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .nav-item {
+    margin-right: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+  }
