@@ -5,10 +5,10 @@ import { signInSuccess, signInFailure, signOutSuccess, signOutFailure, signUpSuc
 
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
-    console.log(emai);
+    console.log(email);
     console.log(password);
-    const { user } = yield signInWithEmailAndPassword(email, password);
-    // yield getSnapshotFromUserAuth(user);
+    const token = yield signInWithEmailAndPassword(email, password);
+    yield put(signInSuccess(token));
   } catch (error) {
     yield put(signInFailure(error));
   }

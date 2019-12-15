@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { emailSignInStart } from '../redux/user/user.actions';
+import { emailSignInStart } from '../redux/user/user.actions.js';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -75,22 +77,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SignIn = () => {
+const SignIn = ({ emailSignInStart }) => {
   const classes = useStyles();
   const [userCredentials, setCredentials] = useState({ email: '', password: '' });
   const { email, password } = userCredentials;
 
   const handleSubmit = async event => {
     event.preventDefault();
-    // login start
     emailSignInStart(email, password);
   }
 
   const handleChange = event => {
     const { value, name } = event.target;
     setCredentials({ ...userCredentials, [name]: value });
-
   }
+
   return (
     <Card className={classes.card}>
       <div className={classes.legendBox}><span className={classes.legendBoxText}>L</span></div>
@@ -119,6 +120,7 @@ const SignIn = () => {
           type='password'
           required
           onChange={handleChange}
+          autoComplete='current-password'
         />
         <Button variant='contained' className={classes.signInButton} type='submit'>Sign In</Button>
       </form>
@@ -128,4 +130,8 @@ const SignIn = () => {
   )
 };
 
-export default SignIn;
+const mapDispatchToProps = dispatch => ({
+  emailSignInStart: (email, password) => dispatch(emailSignInStart({ email, password }))
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);

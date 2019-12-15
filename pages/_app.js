@@ -1,6 +1,10 @@
 import React from 'react';
-import withReduxStore from '../lib/with-redux-store';
+// import withReduxStore from '../lib/with-redux-store';
 import { Provider } from 'react-redux';
+import withRedux from 'next-redux-wrapper';
+import withReduxSaga from 'next-redux-saga';
+
+import configureStore from '../redux/store';
 
 import App from 'next/app';
 import Head from 'next/head';
@@ -17,8 +21,18 @@ class MyApp extends App {
     }
   }
 
+  static async getInitialProps({ Component, ctx }) {
+    let pageProps = {}
+
+    if (Component.getInitialProps) {
+      pageProps = await Component.getInitialProps({ ctx })
+    }
+
+    return { pageProps }
+  }
+
   render() {
-    const { Component, pageProps, reduxStore } = this.props;
+    const { Component, pageProps, store } = this.props;
 
     return (
       <React.Fragment>
@@ -29,7 +43,7 @@ class MyApp extends App {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Provider store={reduxStore}>
+          <Provider store={store}>
             <Component {...pageProps} />
           </Provider>
         </ThemeProvider>
@@ -38,4 +52,4 @@ class MyApp extends App {
   }
 }
 
-export default withReduxStore(MyApp);
+export default withRedux(configureStore)(withReduxSaga(MyApp));
