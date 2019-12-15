@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import './header.styles.scss';
 
 const Header = () => {
@@ -23,11 +24,13 @@ const Header = () => {
         </Link>
       </div>
       <div className='right-nav'>
-        <Link href="/products">
+        <Link href="/signin">
           <a className='nav-item'>Sign In</a>
         </Link>
         <Link href="/products">
-          <a className='nav-item'>Cart</a>
+          <a className='nav-item'>
+            <ShoppingCartIcon />
+          </a>
         </Link>
       </div>
     </div>
