@@ -15,6 +15,7 @@ function Copyright() {
       <MuiLink color="inherit" href="https://material-ui.com/">
         Your Website
       </MuiLink>{' '}
+      <Header />
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -24,16 +25,15 @@ function Copyright() {
 export default function Index() {
   return (
     <div className='full-width'>
-      <Header />
       <div className='section-container'>
-        <SectionBox key='1' title1='Compare.Request.Choose.Order' title2='Your one stop for all electrical products' bgColor='#0859a0' btnText='Sign Up' otherStyles='section-top' />
-        <SectionBox key='2' title1='Trusted within the industry' title2='Save time and money by ordering and requesting quotes from the biggest range of electrical wholesalers and products within Australia.' btnText='Find out more' fontColor="#404040" />
-        <SectionBox key='3' title2={"It is amazing tool I use on a day to day basis. Simplicity and the amount of time saved is curcial for my business. - John Snow"} bgColor='#e9e9f2' fontColor="#404040" />
-        <SectionBox key='4' title1='Compare Electrical Products:' title2={"Easily find and compare items and prices from the biggest range of electrical products in one location."} bgColor='cayon' otherStyles='text-left section-with-image' imgUrl='/Compare_electrical.png' altText='compare electrical' bgColor="#008ec1" />
-        <SectionBox key='5' title1='Request Quote:' title2={"Quotes can be sent out to every wholesaler in one click, saving you time from sending the same order out to each individual suppliers."} bgColor='cayon' otherStyles='text-left section-with-image' imgUrl='/request_quote.png' alt='request quote' bgColor="#4db5ca" />
-        <SectionBox key='6' title1='Reverse Auctions:' title2={"Wholesalers have the option to bid for the lowest price for an order you have requested."} otherStyles='text-left section-with-image' imgUrl='/Reverse_Auction.png' alt='reverse auction' bgColor="#348f49" />
-        <SectionBox key='6' title1='Order Management:' title2={"Manage all incoming orders, transactions and jobs in one simple platform, giving you the ability to keep track of orders and prices, and easily chase up on any issues you have with your orders."} otherStyles='text-left section-with-image' imgUrl='/OrderManagement.png' alt='order management' bgColor="#fc482c" />
-        <SectionBox key='6' title1='Order Management:' title2={"Employee Integration: Integrate your employees with this system and manage all of their orders and jobs in one place."} otherStyles='text-left section-with-image' imgUrl='/Employee_Integration.png' alt='employee integration' bgColor="#a3c078" />
+        <SectionBox title1='Compare.Request.Choose.Order' title2='Your one stop for all electrical products' bgColor='#0859a0' btnText='Sign Up' otherStyles='section-top' />
+        <SectionBox title1='Trusted within the industry' title2='Save time and money by ordering and requesting quotes from the biggest range of electrical wholesalers and products within Australia.' btnText='Find out more' fontColor="#404040" />
+        <SectionBox title2={"It is amazing tool I use on a day to day basis. Simplicity and the amount of time saved is curcial for my business. - John Snow"} bgColor='#e9e9f2' fontColor="#404040" />
+        <SectionBox title1='Compare Electrical Products:' title2={"Easily find and compare items and prices from the biggest range of electrical products in one location."} bgColor='cayon' otherStyles='text-left section-with-image' imgUrl='/Compare_electrical.png' altText='compare electrical' bgColor="#008ec1" />
+        <SectionBox title1='Request Quote:' title2={"Quotes can be sent out to every wholesaler in one click, saving you time from sending the same order out to each individual suppliers."} bgColor='cayon' otherStyles='text-left section-with-image' imgUrl='/request_quote.png' alt='request quote' bgColor="#4db5ca" />
+        <SectionBox title1='Reverse Auctions:' title2={"Wholesalers have the option to bid for the lowest price for an order you have requested."} otherStyles='text-left section-with-image' imgUrl='/Reverse_Auction.png' alt='reverse auction' bgColor="#348f49" />
+        <SectionBox title1='Order Management:' title2={"Manage all incoming orders, transactions and jobs in one simple platform, giving you the ability to keep track of orders and prices, and easily chase up on any issues you have with your orders."} otherStyles='text-left section-with-image' imgUrl='/OrderManagement.png' alt='order management' bgColor="#fc482c" />
+        <SectionBox title1='Order Management:' title2={"Employee Integration: Integrate your employees with this system and manage all of their orders and jobs in one place."} otherStyles='text-left section-with-image' imgUrl='/Employee_Integration.png' alt='employee integration' bgColor="#a3c078" />
         <Typography variant="h4" component="h1" gutterBottom className='title1' className="header-title-blue">
           We differ from other services
         </Typography>

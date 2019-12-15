@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import './header.styles.scss';
 
 const Header = () => {

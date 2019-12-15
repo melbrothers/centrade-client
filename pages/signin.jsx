@@ -4,6 +4,7 @@ import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { emailSignInStart } from '../redux/user/user.actions';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -82,6 +83,7 @@ const SignIn = () => {
   const handleSubmit = async event => {
     event.preventDefault();
     // login start
+    emailSignInStart(email, password);
   }
 
   const handleChange = event => {
