@@ -64,7 +64,7 @@ export default function Index() {
         </div>
 
         <div className="footer">
-          <SectionBox key='6' title1='Be a part of the future' title2={"Sign up today to access the biggest range of the electrical wholesalers and products within Australia."} otherStyles='text-left footer-with-image' imgUrl='/future.jpg' alt='Be part of future' bgColor="#015a9e" btnText='Sign Up' />
+          <SectionBox key='6' title1='Be a part of the future' title2={"Sign up today to access the biggest range of the electrical wholesalers and products within Australia."} otherStyles='text-left footer-with-image' imgUrl='/future.jpg' alt='Be part of future' bgColor="#015a9e" btnText='Sign Up' routeSlug='signup' />
         </div>
       </div>
 
