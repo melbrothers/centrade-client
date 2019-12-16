@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import './header.styles.scss';
+import ShoppingCartOutlined from '@material-ui/icons/ShoppingCartOutlined';
 
 const Header = () => {
   return (
@@ -28,7 +29,7 @@ const Header = () => {
         </Link>
         <Link href="/products">
           <a className='nav-item'>
-            <ShoppingCartIcon />
+            <ShoppingCartOutlined color='accent' />
           </a>
         </Link>
       </div>

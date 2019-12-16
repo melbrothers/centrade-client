@@ -25,6 +25,7 @@ function Copyright() {
 export default function Index() {
   return (
     <div className='full-width'>
+      <Header />
       <div className='section-container'>
         <SectionBox title1='Compare.Request.Choose.Order' title2='Your one stop for all electrical products' bgColor='#0859a0' btnText='Sign Up' otherStyles='section-top' />
         <SectionBox title1='Trusted within the industry' title2='Save time and money by ordering and requesting quotes from the biggest range of electrical wholesalers and products within Australia.' btnText='Find out more' fontColor="#404040" />
