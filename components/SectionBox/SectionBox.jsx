@@ -22,10 +22,9 @@ const SectionBox = ({ title1, title2, bgColor, fontColor, btnText, otherStyles, 
     </div>
     {
       routeSlug ? <Link href={`/${routeSlug}`}>
-        {btnText ? btnText : ''}
+        <a>{btnText ? btnText : ''}</a>
       </Link> : null
     }
-
   </div>
 );
 

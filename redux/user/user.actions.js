@@ -25,7 +25,7 @@ export const emailSignInStart = emailAndPassword => ({
 });
 
 export const signOutStart = () => ({
-  type: UserActionTypes.SIGN_OUT_START
+  type: UserActionTypes.SIGN_OUT
 });
 
 export const signOutSuccess = () => ({

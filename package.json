@@ -27,6 +27,8 @@
     "heroku-postbuild": "npm run build"
   },
   "devDependencies": {
-    "redux-devtools": "^3.5.0"
+    "@types/node": "^12.12.21",
+    "redux-devtools": "^3.5.0",
+    "typescript": "^3.7.3"
   }
 }

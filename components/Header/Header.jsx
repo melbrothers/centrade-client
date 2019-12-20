@@ -1,9 +1,16 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
+import { signOutStart } from '../../redux/user/user.actions';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+
 import Link from 'next/link';
 import './header.styles.scss';
 import ShoppingCartOutlined from '@material-ui/icons/ShoppingCartOutlined';
 
-const Header = () => {
+const Header = ({ currentUser, signOutStart }) => {
+  signOutStart
   return (
     <div className='header'>
       <div className='left-nav'>
@@ -24,12 +31,17 @@ const Header = () => {
         </Link>
       </div>
       <div className='right-nav'>
-        <Link href="/signin">
-          <a className='nav-item'>Sign In</a>
-        </Link>
+        {currentUser && currentUser.token !== 'undefined' ?
+          <Link href='/signout' onClick={signOutStart}>SIGN OUT</Link>
+          :
+          <Link href="/signin">
+            <a className='nav-item'>Sign In</a>
+          </Link>
+        }
+
         <Link href="/products">
           <a className='nav-item'>
-            <ShoppingCartOutlined color='accent' />
+            <ShoppingCartOutlined color='primary' />
           </a>
         </Link>
       </div>
@@ -37,4 +49,12 @@ const Header = () => {
   )
 };
 
-export default Header;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
+});
+
+const mapDispatchToProps = dispatch => ({
+  signOutStart: () => dispatch(signOutStart())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

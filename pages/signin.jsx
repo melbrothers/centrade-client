@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
+import { selectCurrentUser } from '../redux/user/user.selectors';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { emailSignInStart } from '../redux/user/user.actions.js';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -77,10 +80,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SignIn = ({ emailSignInStart }) => {
+const SignIn = ({ currentUser, emailSignInStart }) => {
   const classes = useStyles();
   const [userCredentials, setCredentials] = useState({ email: '', password: '' });
   const { email, password } = userCredentials;
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(currentUser);
+    if (currentUser && currentUser.token) {
+      router.push('/');
+    }
+    // return () => {
+    //   cleanup
+    // };
+  }, [currentUser]);
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -130,8 +144,13 @@ const SignIn = ({ emailSignInStart }) => {
   )
 };
 
+
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
+});
+
 const mapDispatchToProps = dispatch => ({
   emailSignInStart: (email, password) => dispatch(emailSignInStart({ email, password }))
 });
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
