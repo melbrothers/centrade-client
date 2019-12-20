@@ -1,12 +1,10 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import { signInWithEmailAndPassword } from './user.util';
 import UserActionTypes from './user.types';
-import { signInSuccess, signInFailure, signOutSuccess, signOutFailure, signUpSuccess, signUpFailure } from './user.actions';
+import { signInSuccess, signInFailure, signOutSuccess, signOutFailure, signUpSuccess, signUpFailure, signOutStart } from './user.actions';
 
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
-    console.log(email);
-    console.log(password);
     const token = yield signInWithEmailAndPassword(email, password);
     yield put(signInSuccess(token));
   } catch (error) {
@@ -14,14 +12,9 @@ export function* signInWithEmail({ payload: { email, password } }) {
   }
 }
 
-// export function* signOut() {
-//   try {
-//     yield auth.signOut();
-//     yield put(signOutSuccess());
-//   } catch (error) {
-//     yield put(signOutFailure(error));
-//   }
-// }
+export function* signOut() {
+  yield put(signOutStart());
+}
 
 // export function* isUserAuthenticated() {
 //   try {
@@ -66,14 +59,15 @@ export function* onEmailSignInStart() {
 //   yield takeLatest(UserActionTypes.CHECK_USER_SESSION, isUserAuthenticated);
 // }
 
-// export function* onSignOutStart() {
-//   yield takeLatest(UserActionTypes.SIGN_OUT_START, signOut);
-// }
+export function* onSignOutStart() {
+  yield takeLatest(UserActionTypes.SIGN_OUT, signOut);
+}
 
 export function* userSagas() {
   yield all(
     [
       call(onEmailSignInStart),
+      call(onSignOutStart)
     ]
   );
 }
