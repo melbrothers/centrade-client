@@ -23,7 +23,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "node server.js"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",
