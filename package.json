@@ -27,7 +27,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "node server.js"
+    "start": "next start -p $PORT"
   },
   "devDependencies": {
     "@types/node": "^12.12.21",

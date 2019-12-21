@@ -15,13 +15,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cors());
 
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(__dirname, 'client/build')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '.next/static/development/pages/_app.js')));
 
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname), 'client/build', 'index.html');
-//   });
-// }
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname), '.next/static/development/pages/', '_app.js');
+  });
+}
 
 app.listen(port, error => {
   if (error) throw error;
