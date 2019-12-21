@@ -6,6 +6,7 @@ import { selectCurrentUser } from '../redux/user/user.selectors';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
+import { SnackbarProvider, useSnackbar } from 'notistack';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { emailSignInStart } from '../redux/user/user.actions.js';
@@ -106,6 +107,10 @@ const SignIn = ({ currentUser, emailSignInStart }) => {
     setCredentials({ ...userCredentials, [name]: value });
   }
 
+  const onClickHandleCreateAccount = event => {
+    router.push('/signup');
+  }
+
   return (
     <Card className={classes.card}>
       <div className={classes.legendBox}><span className={classes.legendBoxText}>L</span></div>
@@ -138,7 +143,7 @@ const SignIn = ({ currentUser, emailSignInStart }) => {
         />
         <Button variant='contained' className={classes.signInButton} type='submit'>Sign In</Button>
       </form>
-      <h4>Don't have an account? <span className={classes.createAccountLink}>Create account</span></h4>
+      <h4>Don't have an account? <span className={classes.createAccountLink} onClick={onClickHandleCreateAccount}>Create account</span></h4>
       <p className={classes.forgotPasswordLink}>Forgot password?</p>
     </Card>
   )
