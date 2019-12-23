@@ -45,4 +45,28 @@
   }
 }
 
+/* Portrait */
+@media only screen 
+  and (min-width: 375px) 
+  and (max-width: 812px) 
+  and (orientation: portrait) { 
+  .signup-page {
+    .signup-card {
+      width: 90%;
+      .signup-left {
+        width: 100%;
+        height: auto;
+      }
+      .signup-right {
+        .signup-form {
+          .field {
+            width: 75%;
+          }
+        }
+      }
+    }
+  }
+  
+}
+
 

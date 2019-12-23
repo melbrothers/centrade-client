@@ -21,7 +21,7 @@ export const signInWithEmailAndPassword = async (email, password) => {
 };
 
 export const signUpWithEmailAndPassword = async (email, password, companyName, abn) => {
-  const signInRequestUrl = 'https://centrade-api.herokuapp.com/reigster';
+  const signInRequestUrl = 'https://centrade-api.herokuapp.com/register';
   const settings = {
     method: 'POST',
     headers: {
