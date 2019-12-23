@@ -31,7 +31,7 @@ const Header = ({ currentUser, signOutStart }) => {
       <div className='right-nav'>
         {currentUser && currentUser.token !== 'undefined' ?
 
-          <a onClick={signOutStart}>SIGN OUT</a>
+          <a class='link' onClick={signOutStart}>SIGN OUT</a>
           :
           <Link href="/signin">
             <a className='nav-item'>Sign In</a>
