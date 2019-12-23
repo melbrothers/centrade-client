@@ -11,23 +11,27 @@ import ShoppingCartOutlined from '@material-ui/icons/ShoppingCartOutlined';
 const Header = ({ currentUser, signOutStart }) => {
   return (
     <div className='header'>
-      <div className='left-nav'>
-        <Link href="/products">
-          <a className='nav-item'>Products</a>
-        </Link>
-        <Link href="/wholesalers">
-          <a className='nav-item'>Wholesalers</a>
-        </Link>
-        <Link href="/services">
-          <a className='nav-item'>Services</a>
-        </Link>
-        <Link href="/about">
-          <a className='nav-item'>About</a>
-        </Link>
-        <Link href="/terms">
-          <a className='nav-item'>Terms</a>
-        </Link>
-      </div>
+      {
+        currentUser && currentUser.token ?
+          <div className='left-nav'>
+            <Link href="/products">
+              <a className='nav-item'>Products</a>
+            </Link>
+            <Link href="/wholesalers">
+              <a className='nav-item'>Wholesalers</a>
+            </Link>
+            <Link href="/services">
+              <a className='nav-item'>Services</a>
+            </Link>
+            <Link href="/about">
+              <a className='nav-item'>About</a>
+            </Link>
+            <Link href="/terms">
+              <a className='nav-item'>Terms</a>
+            </Link>
+          </div> : null
+      }
+
       <div className='right-nav'>
         {currentUser && currentUser.token !== 'undefined' ?
 

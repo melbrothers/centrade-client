@@ -23,6 +23,8 @@
   .right-nav {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    float: right;
   }
 
   .link {
