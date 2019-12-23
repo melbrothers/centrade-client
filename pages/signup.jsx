@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import { useSnackbar } from 'notistack';
 import Link from 'next/link';
 
+import Footer from '../components/Footer/Footer';
+
 import '../styles/signup.styles.scss';
 
 
@@ -47,67 +49,71 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
     setCredentials({ ...userCredentials, [name]: value });
   }
   return (
-    <Card className='signup-card'>
-      <div className='signup-left'>
-      </div>
-      <div className='signup-right'>
-        <form className='signup-form' noValidate autoComplete='off' onSubmit={handleSubmit}>
-          <Typography variant="h4" component="h2" gutterBottom className='signup-title'>
-            Legend
+    <div className='signup'>
+      <Card className='signup-card'>
+        <div className='signup-left'>
+        </div>
+        <div className='signup-right'>
+          <form className='signup-form' noValidate autoComplete='off' onSubmit={handleSubmit}>
+            <Typography variant="h4" component="h2" gutterBottom className='signup-title'>
+              Legend
           </Typography>
-          <Typography variant="body1" component="h3" gutterBottom>
-            Create your new account
+            <Typography variant="body1" component="h3" gutterBottom>
+              Create your new account
           </Typography>
-          <TextField
-            id='email'
-            label='Email'
-            name='email'
-            variant='outlined'
-            className='field'
-            value={email}
-            type='email'
-            required
-            onChange={handleChange}
-          />
-          <TextField
-            id='companyName'
-            label='Company Name'
-            name='companyName'
-            variant='outlined'
-            className='field'
-            value={companyName}
-            type='text'
-            required
-            onChange={handleChange}
-          />
-          <TextField
-            id='abn'
-            label='ABN'
-            name='abn'
-            variant='outlined'
-            className='field'
-            value={abn}
-            type='text'
-            required
-            onChange={handleChange}
-          />
-          <TextField
-            id='password'
-            label='Password'
-            name='password'
-            variant='outlined'
-            className='field'
-            value={password}
-            type='password'
-            required
-            onChange={handleChange}
-            autoComplete='current-password'
-          />
-          <Button variant='contained' className='signup-button' type='submit'>Create Account</Button>
-          <h4>Have an account? <Link href='/signin'><a>Signin now</a></Link></h4>
-        </form>
-      </div>
-    </Card>
+            <TextField
+              id='email'
+              label='Email'
+              name='email'
+              variant='outlined'
+              className='field'
+              value={email}
+              type='email'
+              required
+              onChange={handleChange}
+            />
+            <TextField
+              id='companyName'
+              label='Company Name'
+              name='companyName'
+              variant='outlined'
+              className='field'
+              value={companyName}
+              type='text'
+              required
+              onChange={handleChange}
+            />
+            <TextField
+              id='abn'
+              label='ABN'
+              name='abn'
+              variant='outlined'
+              className='field'
+              value={abn}
+              type='text'
+              required
+              onChange={handleChange}
+            />
+            <TextField
+              id='password'
+              label='Password'
+              name='password'
+              variant='outlined'
+              className='field'
+              value={password}
+              type='password'
+              required
+              onChange={handleChange}
+              autoComplete='current-password'
+            />
+            <Button variant='contained' className='signup-button' type='submit'>Create Account</Button>
+            <h4>Have an account? <Link href='/signin'><a>Signin now</a></Link></h4>
+          </form>
+        </div>
+      </Card>
+      <Footer />
+    </div>
+
   );
 };
 const mapStateToProps = createStructuredSelector({
