@@ -11,6 +11,10 @@ import SectionBox from '../components/SectionBox/SectionBox';
 import '../styles/index.styles.scss';
 
 export default function Index() {
+  useEffect(() => {
+    document.body.classList.remove('signin-page');
+    document.body.classList.remove('signup-page');
+  }, []);
   return (
     <div className='full-width'>
       <Header />
