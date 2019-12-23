@@ -17,9 +17,7 @@ export function* signInWithEmail({ payload: { email, password } }) {
   }
 }
 
-export function* signOut() {
-  yield put(signOutStart());
-}
+
 
 // export function* isUserAuthenticated() {
 //   try {
@@ -70,7 +68,7 @@ export function* onEmailSignInStart() {
 // }
 
 export function* onSignOutStart() {
-  yield takeLatest(UserActionTypes.SIGN_OUT, signOut);
+  put(UserActionTypes.SIGN_OUT);
 }
 
 export function* userSagas() {
