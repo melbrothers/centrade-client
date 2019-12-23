@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
+
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser, selectError } from '../redux/user/user.selectors';
-
 import { signUpStart } from '../redux/user/user.actions.js';
 
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { useSnackbar } from 'notistack';
 import Link from 'next/link';
 
 import Footer from '../components/Footer/Footer';
@@ -22,23 +22,15 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
   const router = useRouter();
   const [userCredentials, setCredentials] = useState({ email: '', password: '', companyName: '', abn: '' });
   const { email, password, companyName, abn } = userCredentials;
-  const { enqueueSnackbar } = useSnackbar();
-  const handleSignUpNotify = async (message) => {
-    // variant could be success, error, warning, info, or default
-    await enqueueSnackbar(`Signup error: ${message}`);
-  };
+
 
   useEffect(() => {
     document.body.classList.add('signup-page');
     if (currentUser) {
       document.body.classList.remove('signup-page');
       router.push('/');
-    } else {
-      if (error) {
-        handleSignUpNotify(error);
-      }
     }
-  }, [currentUser, error]);
+  }, [currentUser]);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -61,7 +53,9 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
             <Typography variant="body1" component="h3" gutterBottom>
               Create your new account
           </Typography>
+
             <TextField
+              error={error.includes('email')}
               id='email'
               label='Email'
               name='email'
@@ -71,8 +65,10 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               type='email'
               required
               onChange={handleChange}
+              helperText={error ? error : null}
             />
             <TextField
+              error={error.includes('name')}
               id='companyName'
               label='Company Name'
               name='companyName'
@@ -82,8 +78,10 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               type='text'
               required
               onChange={handleChange}
+              helperText={error ? error : null}
             />
             <TextField
+              error={error.includes('abn')}
               id='abn'
               label='ABN'
               name='abn'
@@ -93,8 +91,10 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               type='text'
               required
               onChange={handleChange}
+              helperText={error ? error : null}
             />
             <TextField
+              error={error.includes('password')}
               id='password'
               label='Password'
               name='password'
@@ -105,6 +105,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               required
               onChange={handleChange}
               autoComplete='current-password'
+              helperText={error ? error : null}
             />
             <Button variant='contained' className='signup-button' type='submit'>Create Account</Button>
             <h4>Have an account? <Link href='/signin'><a>Signin now</a></Link></h4>
