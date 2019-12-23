@@ -65,7 +65,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               type='email'
               required
               onChange={handleChange}
-              helperText={error ? error : null}
+              helperText={error ? error.includes('email') : null}
             />
             <TextField
               error={error && error.includes('name')}
@@ -78,7 +78,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               type='text'
               required
               onChange={handleChange}
-              helperText={error ? error : null}
+              helperText={error ? error.includes('name') : null}
             />
             <TextField
               error={error && error.includes('abn')}
@@ -91,7 +91,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               type='text'
               required
               onChange={handleChange}
-              helperText={error ? error : null}
+              helperText={error ? error.includes('abn') : null}
             />
             <TextField
               error={error && error.includes('password')}
@@ -105,7 +105,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               required
               onChange={handleChange}
               autoComplete='current-password'
-              helperText={error ? error : null}
+              helperText={error ? error.includes('password') : null}
             />
             <Button variant='contained' className='signup-button' type='submit'>Create Account</Button>
             <h4>Have an account? <Link href='/signin'><a>Signin now</a></Link></h4>
