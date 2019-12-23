@@ -59,7 +59,7 @@ const SignIn = ({ currentUser, emailSignInStart, error }) => {
   }
 
   return (
-    <div class='signin'>
+    <div className='signin'>
       <Card className='card'>
         <div className='legend-box'><span className='legendbox-text'>L</span></div>
         <h1 className='title'>Legend</h1>
