@@ -55,7 +55,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
           </Typography>
 
             <TextField
-              error={error.includes('email')}
+              error={error && error.includes('email')}
               id='email'
               label='Email'
               name='email'
@@ -68,7 +68,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               helperText={error ? error : null}
             />
             <TextField
-              error={error.includes('name')}
+              error={error && error.includes('name')}
               id='companyName'
               label='Company Name'
               name='companyName'
@@ -81,7 +81,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               helperText={error ? error : null}
             />
             <TextField
-              error={error.includes('abn')}
+              error={error && error.includes('abn')}
               id='abn'
               label='ABN'
               name='abn'
@@ -94,7 +94,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               helperText={error ? error : null}
             />
             <TextField
-              error={error.includes('password')}
+              error={error && error.includes('password')}
               id='password'
               label='Password'
               name='password'
