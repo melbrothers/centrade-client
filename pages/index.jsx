@@ -1,26 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Header from '../components/Header/Header';
 import SectionBox from '../components/SectionBox/SectionBox';
 
-import './index.scss';
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <MuiLink color="inherit" href="https://material-ui.com/">
-        Your Website
-      </MuiLink>{' '}
-      <Header />
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import '../styles/index.styles.scss';
 
 export default function Index() {
   return (
@@ -67,7 +52,6 @@ export default function Index() {
           <SectionBox key='6' title1='Be a part of the future' title2={"Sign up today to access the biggest range of the electrical wholesalers and products within Australia."} otherStyles='text-left footer-with-image' imgUrl='/future.jpg' alt='Be part of future' bgColor="#015a9e" btnText='Sign Up' routeSlug='signup' />
         </div>
       </div>
-
     </div>
   );
 }

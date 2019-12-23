@@ -1,105 +1,50 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { useRouter } from 'next/router';
 
-import { selectCurrentUser } from '../redux/user/user.selectors';
+import { selectCurrentUser, selectError } from '../redux/user/user.selectors';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
-import { SnackbarProvider, useSnackbar } from 'notistack';
+import { useSnackbar } from 'notistack';
+import Link from 'next/link';
 
-import { makeStyles } from '@material-ui/core/styles';
 import { emailSignInStart } from '../redux/user/user.actions.js';
-import { useRouter } from 'next/router';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '80%'
-  },
-  card: {
-    minWidth: 375,
-    maxWidth: '55%',
-    margin: '30vh auto',
-    // height: '80vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  title: {
-    fontSize: 32.5,
-    fontWeight: 'bold',
-    color: '#007DE9',
-    textTransform: 'uppercase'
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  field: {
-    width: '80%',
-  },
-  legendBox: {
-    width: '135px',
-    height: '135px',
-    backgroundColor: '#007DE9',
-    margin: '20px auto',
-  },
-  legendBoxText: {
-    fontSize: '98px',
-    fontFamily: 'Roboto',
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
-    display: 'grid',
-    gridColumn: '1'
-  },
-  createAccountLink: {
-    display: 'inline-block',
-    color: '#2684FE',
-    fontStyle: 'italic',
-    textDecoration: 'underline',
-    cursor: 'pointer',
-  },
-  forgotPasswordLink: {
-    display: 'inline-block',
-    textDecoration: 'underline',
-    cursor: 'pointer',
-  },
-  signInButton: {
-    background: '#2684FE',
-    color: '#fff',
-    textTransform: 'initial',
-    width: '80%',
-  },
-}));
+import '../styles/signin.styles.scss';
 
-const SignIn = ({ currentUser, emailSignInStart }) => {
-  const classes = useStyles();
+const SignIn = ({ currentUser, emailSignInStart, error }) => {
   const [userCredentials, setCredentials] = useState({ email: '', password: '' });
   const { email, password } = userCredentials;
   const router = useRouter();
 
+  const handleLoginNotify = async (message) => {
+    // variant could be success, error, warning, info, or default
+    await enqueueSnackbar(`Login error: ${message}`);
+
+  };
+
+  const { enqueueSnackbar } = useSnackbar();
+
   useEffect(() => {
-    console.log(currentUser);
-    if (currentUser && currentUser.token) {
+    document.body.classList.add('signin-page');
+    if (currentUser) {
+      document.body.classList.remove('signin-page');
       router.push('/');
+    } else {
+      if (error) {
+        handleLoginNotify(error);
+      }
     }
-    // return () => {
-    //   cleanup
-    // };
-  }, [currentUser]);
+  }, [currentUser, error]);
+
 
   const handleSubmit = async event => {
     event.preventDefault();
+
     emailSignInStart(email, password);
+
   }
 
   const handleChange = event => {
@@ -112,18 +57,18 @@ const SignIn = ({ currentUser, emailSignInStart }) => {
   }
 
   return (
-    <Card className={classes.card}>
-      <div className={classes.legendBox}><span className={classes.legendBoxText}>L</span></div>
-      <h1 className={classes.title}>Legend</h1>
+    <Card className='card'>
+      <div className='legend-box'><span className='legendbox-text'>L</span></div>
+      <h1 className='title'>Legend</h1>
       <h2>Login to your account</h2>
       <p>Already have an account? Sign in Now</p>
-      <form className={classes.root} noValidate autoComplete='off' onSubmit={handleSubmit}>
+      <form className='root' noValidate autoComplete='off' onSubmit={handleSubmit}>
         <TextField
           id='email'
           label='Email'
           name='email'
           variant='outlined'
-          className={classes.field}
+          className='field'
           value={email}
           type='email'
           required
@@ -134,24 +79,25 @@ const SignIn = ({ currentUser, emailSignInStart }) => {
           label='Password'
           name='password'
           variant='outlined'
-          className={classes.field}
+          className='field'
           value={password}
           type='password'
           required
           onChange={handleChange}
           autoComplete='current-password'
         />
-        <Button variant='contained' className={classes.signInButton} type='submit'>Sign In</Button>
+        <Button variant='contained' className='signin-button' type='submit'>Sign In</Button>
       </form>
-      <h4>Don't have an account? <span className={classes.createAccountLink} onClick={onClickHandleCreateAccount}>Create account</span></h4>
-      <p className={classes.forgotPasswordLink}>Forgot password?</p>
+      <h4>Don't have an account? <Link href='/signup'><a>Create account</a></Link></h4>
+      <Link href='#'><a>Forgot password?</a></Link>
     </Card>
   )
 };
 
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  error: selectError
 });
 
 const mapDispatchToProps = dispatch => ({
