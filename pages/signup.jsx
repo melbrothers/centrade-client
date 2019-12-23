@@ -1,138 +1,126 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useRouter } from 'next/router';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser, selectError } from '../redux/user/user.selectors';
+
+import { signUpStart } from '../redux/user/user.actions.js';
 
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { useSnackbar } from 'notistack';
+import Link from 'next/link';
 
-import { makeStyles } from '@material-ui/core/styles';
+import Footer from '../components/Footer/Footer';
 
-const useStyles = makeStyles(theme => ({
-  signupForm: {
+import '../styles/signup.styles.scss';
 
-  },
-  card: {
-    minWidth: 375,
-    maxWidth: '55%',
-    margin: '30vh auto',
-    // height: '80vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  title: {
-    fontSize: 32.5,
-    fontWeight: 'bold',
-    color: '#007DE9',
-    textTransform: 'uppercase'
-  },
-  pos: {
-    marginBottom: 12,
-  },
-  field: {
-    width: '80%',
-  },
-  legendBox: {
-    width: '135px',
-    height: '135px',
-    backgroundColor: '#007DE9',
-    margin: '20px auto',
-  },
-  legendBoxText: {
-    fontSize: '98px',
-    fontFamily: 'Roboto',
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
-    display: 'grid',
-    gridColumn: '1'
-  },
-  createAccountLink: {
-    display: 'inline-block',
-    color: '#2684FE',
-    fontStyle: 'italic',
-    textDecoration: 'underline',
-    cursor: 'pointer',
-  },
-  forgotPasswordLink: {
-    display: 'inline-block',
-    textDecoration: 'underline',
-    cursor: 'pointer',
-  },
-  signupButton: {
-    background: '#2684FE',
-    color: '#fff',
-    textTransform: 'initial',
-    width: '80%',
-  },
-}));
 
-const SignUp = () => {
-  const signUpStyles = useStyles();
+const SignUp = ({ emailSignUpStart, currentUser, error }) => {
+  const router = useRouter();
   const [userCredentials, setCredentials] = useState({ email: '', password: '', companyName: '', abn: '' });
   const { email, password, companyName, abn } = userCredentials;
+  const { enqueueSnackbar } = useSnackbar();
+  const handleSignUpNotify = async (message) => {
+    // variant could be success, error, warning, info, or default
+    await enqueueSnackbar(`Signup error: ${message}`);
+  };
+
+  useEffect(() => {
+    document.body.classList.add('signup-page');
+    if (currentUser) {
+      document.body.classList.remove('signup-page');
+      router.push('/');
+    } else {
+      if (error) {
+        handleSignUpNotify(error);
+      }
+    }
+  }, [currentUser, error]);
+
   const handleSubmit = event => {
-    console.log(event);
+    event.preventDefault();
+    emailSignUpStart(email, password, companyName, abn);
   }
   const handleChange = event => {
-    console.log(event);
+    const { value, name } = event.target;
+    setCredentials({ ...userCredentials, [name]: value });
   }
   return (
-    <Card className={signUpStyles.card}>
-      <div className='sign-up-left'>
+    <div className='signup'>
+      <Card className='signup-card'>
+        <div className='signup-left'>
+        </div>
+        <div className='signup-right'>
+          <form className='signup-form' noValidate autoComplete='off' onSubmit={handleSubmit}>
+            <Typography variant="h4" component="h2" gutterBottom className='signup-title'>
+              Legend
+          </Typography>
+            <Typography variant="body1" component="h3" gutterBottom>
+              Create your new account
+          </Typography>
+            <TextField
+              id='email'
+              label='Email'
+              name='email'
+              variant='outlined'
+              className='field'
+              value={email}
+              type='email'
+              required
+              onChange={handleChange}
+            />
+            <TextField
+              id='companyName'
+              label='Company Name'
+              name='companyName'
+              variant='outlined'
+              className='field'
+              value={companyName}
+              type='text'
+              required
+              onChange={handleChange}
+            />
+            <TextField
+              id='abn'
+              label='ABN'
+              name='abn'
+              variant='outlined'
+              className='field'
+              value={abn}
+              type='text'
+              required
+              onChange={handleChange}
+            />
+            <TextField
+              id='password'
+              label='Password'
+              name='password'
+              variant='outlined'
+              className='field'
+              value={password}
+              type='password'
+              required
+              onChange={handleChange}
+              autoComplete='current-password'
+            />
+            <Button variant='contained' className='signup-button' type='submit'>Create Account</Button>
+            <h4>Have an account? <Link href='/signin'><a>Signin now</a></Link></h4>
+          </form>
+        </div>
+      </Card>
+      <Footer />
+    </div>
 
-      </div>
-      <div className='signup-right'>
-        <form className={signUpStyles.signupForm} noValidate autoComplete='off' onSubmit={handleSubmit}>
-          <TextField
-            id='email'
-            label='Email'
-            name='email'
-            variant='outlined'
-            className={signUpStyles.field}
-            value={email}
-            type='email'
-            required
-            onChange={handleChange}
-          />
-          <TextField
-            id='companyName'
-            label='Company Name'
-            name='companyName'
-            variant='outlined'
-            className={signUpStyles.field}
-            value={companyName}
-            type='text'
-            required
-            onChange={handleChange}
-          />
-          <TextField
-            id='abn'
-            label='ABN'
-            name='abn'
-            variant='outlined'
-            className={signUpStyles.field}
-            value={abn}
-            type='text'
-            required
-            onChange={handleChange}
-          />
-          <TextField
-            id='password'
-            label='Password'
-            name='password'
-            variant='outlined'
-            className={signUpStyles.field}
-            value={password}
-            type='password'
-            required
-            onChange={handleChange}
-            autoComplete='current-password'
-          />
-          <Button variant='contained' className={signUpStyles.signupButton} type='submit'>Sign up</Button>
-        </form>
-      </div>
-    </Card>
   );
 };
-export default SignUp;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  error: selectError
+});
+const mapDispatchToProps = dispatch => ({
+  emailSignUpStart: (email, password, name, abn) => dispatch(signUpStart({ email, password, name, abn }))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

@@ -3,6 +3,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
+import { SnackbarProvider } from 'notistack';
 
 import configureStore from '../redux/store';
 
@@ -45,7 +46,9 @@ class MyApp extends App {
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
           <Provider store={store}>
-            <Component {...pageProps} />
+            <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+              <Component {...pageProps} />
+            </SnackbarProvider>
           </Provider>
         </ThemeProvider>
       </React.Fragment>
