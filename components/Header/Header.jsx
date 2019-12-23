@@ -4,13 +4,11 @@ import { createStructuredSelector } from 'reselect';
 
 import { signOutStart } from '../../redux/user/user.actions';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
-
 import Link from 'next/link';
 import './header.styles.scss';
 import ShoppingCartOutlined from '@material-ui/icons/ShoppingCartOutlined';
 
 const Header = ({ currentUser, signOutStart }) => {
-  signOutStart
   return (
     <div className='header'>
       <div className='left-nav'>
@@ -32,7 +30,8 @@ const Header = ({ currentUser, signOutStart }) => {
       </div>
       <div className='right-nav'>
         {currentUser && currentUser.token !== 'undefined' ?
-          <Link href='/signout' onClick={signOutStart}>SIGN OUT</Link>
+
+          <a onClick={signOutStart}>SIGN OUT</a>
           :
           <Link href="/signin">
             <a className='nav-item'>Sign In</a>
