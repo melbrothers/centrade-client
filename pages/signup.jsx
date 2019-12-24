@@ -40,6 +40,38 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
     const { value, name } = event.target;
     setCredentials({ ...userCredentials, [name]: value });
   }
+
+  const transformErrors = errorMessage => {
+    let newErrorsArray = [];
+
+    if (errorMessage) {
+      let errorList = errorMessage.split('.');
+      errorList.map(error => {
+        if (error) {
+          let newErrors = {};
+          newErrors.type = error.split(':')[0].trim();
+          newErrors.value = error.split(':')[1].trim();
+          newErrorsArray.push(newErrors);
+        }
+      });
+    }
+    return newErrorsArray;
+  }
+
+  const getErrorMessages = (errorMessage, type) => {
+    let errorList = transformErrors(errorMessage);
+    let errorMsg = '';
+    if (errorList.length) {
+      errorList.map(errorObj => {
+        if (errorObj.type === type) {
+          errorMsg = errorObj.value;
+        }
+      })
+    }
+
+    return errorMsg;
+  }
+
   return (
     <div className='signup'>
       <Card className='signup-card'>
@@ -65,7 +97,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               type='email'
               required
               onChange={handleChange}
-              helperText={error && error.includes('email') ? error : null}
+              helperText={error && error.includes('email') ? getErrorMessages(error, 'email') : null}
             />
             <TextField
               error={error && error.includes('name')}
@@ -78,7 +110,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               type='text'
               required
               onChange={handleChange}
-              helperText={error && error.includes('name') ? error : null}
+              helperText={error && error.includes('name') ? getErrorMessages(error, 'name') : null}
             />
             <TextField
               error={error && error.includes('abn')}
@@ -91,7 +123,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               type='text'
               required
               onChange={handleChange}
-              helperText={error && error.includes('abn') ? error : null}
+              helperText={error && error.includes('abn') ? getErrorMessages(error, 'abn') : null}
             />
             <TextField
               error={error && error.includes('password')}
@@ -105,7 +137,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               required
               onChange={handleChange}
               autoComplete='current-password'
-              helperText={error && error.includes('password') ? error : null}
+              helperText={error && error.includes('password') ? getErrorMessages(error, 'password') : null}
             />
             <Button variant='contained' className='signup-button' type='submit'>Create Account</Button>
             <h4>Have an account? <Link href='/signin'><a>Signin now</a></Link></h4>
