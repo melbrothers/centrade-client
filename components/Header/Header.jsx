@@ -12,7 +12,7 @@ const Header = ({ currentUser, signOutStart }) => {
   return (
     <div className='header'>
       {
-        currentUser && currentUser.token ?
+        currentUser ?
           <div className='left-nav'>
             <Link href="/products">
               <a className='nav-item'>Products</a>
@@ -33,9 +33,9 @@ const Header = ({ currentUser, signOutStart }) => {
       }
 
       <div className='right-nav'>
-        {currentUser && currentUser.token !== 'undefined' ?
+        {currentUser ?
 
-          <a class='link' onClick={signOutStart}>SIGN OUT</a>
+          <a className='link' onClick={signOutStart}>SIGN OUT</a>
           :
           <Link href="/signin">
             <a className='nav-item'>Sign In</a>
