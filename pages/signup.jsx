@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { useRouter } from 'next/router';
 
 import { createStructuredSelector } from 'reselect';
-import { selectCurrentUser, selectError } from '../redux/user/user.selectors';
+import { selectCurrentUser, selectError, selectLoading } from '../redux/user/user.selectors';
 import { signUpStart } from '../redux/user/user.actions.js';
 
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Link from 'next/link';
 
 import Footer from '../components/Footer/Footer';
@@ -18,7 +19,7 @@ import Footer from '../components/Footer/Footer';
 import '../styles/signup.styles.scss';
 
 
-const SignUp = ({ emailSignUpStart, currentUser, error }) => {
+const SignUp = ({ emailSignUpStart, currentUser, error, loading }) => {
   const router = useRouter();
   const [userCredentials, setCredentials] = useState({ email: '', password: '', companyName: '', abn: '' });
   const { email, password, companyName, abn } = userCredentials;
@@ -139,7 +140,7 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
               autoComplete='current-password'
               helperText={error && error.includes('password') ? getErrorMessages(error, 'password') : null}
             />
-            <Button variant='contained' className='signup-button' type='submit'>Create Account</Button>
+            <Button variant='contained' className='signup-button' type='submit'>Create Account &nbsp; {loading ? <CircularProgress variant='indeterminate' color='inherit' className='loading' size={20} /> : null}</Button>
             <h4>Have an account? <Link href='/signin'><a>Signin now</a></Link></h4>
           </form>
         </div>
@@ -151,7 +152,8 @@ const SignUp = ({ emailSignUpStart, currentUser, error }) => {
 };
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  error: selectError
+  error: selectError,
+  loading: selectLoading
 });
 const mapDispatchToProps = dispatch => ({
   emailSignUpStart: (email, password, name, abn) => dispatch(signUpStart({ email, password, name, abn }))

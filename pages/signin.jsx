@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { useRouter } from 'next/router';
 
-import { selectCurrentUser, selectError } from '../redux/user/user.selectors';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+
+import { selectCurrentUser, selectError, selectLoading } from '../redux/user/user.selectors';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
-import Link from 'next/link';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Footer from '../components/Footer/Footer';
 
 import { emailSignInStart } from '../redux/user/user.actions.js';
 
 import '../styles/signin.styles.scss';
 
-const SignIn = ({ currentUser, emailSignInStart, error }) => {
+const SignIn = ({ currentUser, emailSignInStart, error, loading }) => {
   const [userCredentials, setCredentials] = useState({ email: '', password: '' });
   const { email, password } = userCredentials;
   const router = useRouter();
@@ -31,18 +32,12 @@ const SignIn = ({ currentUser, emailSignInStart, error }) => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
     emailSignInStart(email, password);
-
   }
 
   const handleChange = event => {
     const { value, name } = event.target;
     setCredentials({ ...userCredentials, [name]: value });
-  }
-
-  const onClickHandleCreateAccount = event => {
-    router.push('/signup');
   }
 
   return (
@@ -54,7 +49,7 @@ const SignIn = ({ currentUser, emailSignInStart, error }) => {
         <p>Already have an account? Sign in Now</p>
         <form className='root' noValidate autoComplete='off' onSubmit={handleSubmit}>
           <TextField
-            error={error}
+            error={error !== null}
             id='email'
             label='Email'
             name='email'
@@ -67,7 +62,7 @@ const SignIn = ({ currentUser, emailSignInStart, error }) => {
             helperText={error}
           />
           <TextField
-            error={error}
+            error={error !== null}
             id='password'
             label='Password'
             name='password'
@@ -80,7 +75,7 @@ const SignIn = ({ currentUser, emailSignInStart, error }) => {
             autoComplete='current-password'
             helperText={error}
           />
-          <Button variant='contained' className='signin-button' type='submit'>Sign In</Button>
+          <Button variant='contained' className='signin-button' type='submit'>Sign In &nbsp;{loading ? <CircularProgress variant='indeterminate' color='inherit' className='loading' size={20} /> : null}</Button>
         </form>
         <h4>Don't have an account? <Link href='/signup'><a>Create account</a></Link></h4>
         <Link href='#'><a>Forgot password?</a></Link>
@@ -93,7 +88,8 @@ const SignIn = ({ currentUser, emailSignInStart, error }) => {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  error: selectError
+  error: selectError,
+  loading: selectLoading
 });
 
 const mapDispatchToProps = dispatch => ({

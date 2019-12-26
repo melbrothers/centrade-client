@@ -1,0 +1,18 @@
+.subheader {
+  background: #d5dfec;
+  .subheader-item {
+    text-align: center;
+    padding: 15px;
+   .subheader-item-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #404040;
+      &.active {
+        color: #4086f7;
+        font-weight: bold;
+      }
+   }
+  }
+}
+
