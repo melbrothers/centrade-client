@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Avatar from '@material-ui/core/Avatar';
 import { Typography, Grid, ButtonGroup, Button } from '@material-ui/core';
@@ -61,6 +61,21 @@ const products = [
 ];
 
 const ProductList = () => {
+  const [counter, setCounter] = useState(0);
+
+  const onClickHandleAdd = event => {
+    let cnt = counter + 1;
+    setCounter(cnt);
+  }
+
+  const onClickHandleMinus = event => {
+    let cnt = counter;
+    if (counter > 0) {
+      cnt = counter - 1;
+    }
+    setCounter(cnt);
+  }
+
   return (
     <div className='product-list'>
       {
@@ -82,11 +97,11 @@ const ProductList = () => {
             <div className='quantity'>
               <Typography variant='subtitle2' component='h6'>Quantity</Typography>
               <ButtonGroup aria-label="outlined primary button group">
-                <Button>
+                <Button onClick={onClickHandleMinus}>
                   <RemoveIcon />
                 </Button>
-                <Button>2</Button>
-                <Button>
+                <Button>{counter}</Button>
+                <Button onClick={onClickHandleAdd}>
                   <AddIcon />
                 </Button>
               </ButtonGroup>
