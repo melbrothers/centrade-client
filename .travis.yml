@@ -15,3 +15,14 @@ before_install:
 
 script:
   - docker run -e CI=true joydesigner/centrade-client npm run test
+
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-test"
+  env: "DockerTest-env"
+  bucket_name: "elasticbeanstalk-us-east-2-667001150618"
+  bucket_path: "docker-test"
+  on:
+    branch: master

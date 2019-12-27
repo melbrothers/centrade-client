@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import Avatar from '@material-ui/core/Avatar';
-import { Typography, Grid, ButtonGroup, Button } from '@material-ui/core';
+import { Typography, Grid, ButtonGroup, Button, Card } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -80,7 +80,7 @@ const ProductList = () => {
     <div className='product-list'>
       {
         products.map(product =>
-          <div className='product-intro' key={product.productName}>
+          <Card className='product-intro' key={product.productName}>
             <Avatar className='product-logo' alt="product image" src={product.logo} />
             <Typography variant='subtitle1' component='h5' className='product-name'>{product.productName}</Typography>
             <Typography variant='subtitle2' component='h6'>${product.price}</Typography>
@@ -106,8 +106,7 @@ const ProductList = () => {
                 </Button>
               </ButtonGroup>
             </div>
-
-          </div>
+          </Card>
         )
       }
 
