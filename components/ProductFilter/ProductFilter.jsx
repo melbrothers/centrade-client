@@ -3,17 +3,19 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Collapse from '@material-ui/core/Collapse';
 
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import './productFilter.styles.scss';
 import { useState } from 'react';
 
 const ProductFilter = ({ categories }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-
+  const [checked, setChecked] = React.useState([0]);
   const handleClick = (categoryId) => {
     if (categoryId) {
       if (selectedCategory && selectedCategory.id === categoryId) {
@@ -27,47 +29,77 @@ const ProductFilter = ({ categories }) => {
       }
     }
   };
+
+  const handleClickSubCategoryFilter = (subcat, index) => {
+    const currentIndex = checked.indexOf(index);
+    const newChecked = [...checked];
+    if (currentIndex === -1) {
+      newChecked.push(index);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+
+  };
+
   return (
     <div className='product-filter'>
       {
-        categories.map((category, index) => (
-          <List
-            className='category-list'
-            component="nav"
-            aria-labelledby="category-header"
-            key={index}
-            subheader={
-              index === 0 ?
-                <ListSubheader component="div" id="category-header" className='category-list-header'>
-                  Category
-          </ListSubheader> : null
-            }
-          >
-            <ListItem
-              button
-              className='catetory-list-item'
-              key={category.id}
-              onClick={() => handleClick(category.id)}
-            >
-              <ListItemText primary={category.title} className='category-list-item-text' />
-              {
-                selectedCategory && selectedCategory.id === category.id && selectedCategory.isOpen ? <ExpandLess /> : <ExpandMore />
+        categories.map((category, index) => {
+          return (
+            <List
+              className='category-list'
+              component="nav"
+              aria-labelledby="category-header"
+              key={index}
+              subheader={
+                index === 0 ?
+                  <ListSubheader component="div" id="category-header" className='category-list-header'>
+                    Category
+                  </ListSubheader> : null
               }
-            </ListItem>
-            <Collapse in={selectedCategory && selectedCategory.id === category.id && selectedCategory.isOpen} timeout="auto" unmountOnExit >
-              <List component="div" disablePadding>
-                {
-                  category.children.map(subCategory => (
-                    <ListItem button className='category-list-nested-item' key={subCategory.id}>
-                      <ListItemText primary={subCategory.title} className='category-list-item-text'> sub text</ListItemText>
-                    </ListItem>
-                  ))
-                }
-              </List>
-            </Collapse>
-          </List>
+            >
+              <ListItem
+                button
+                className='catetory-list-item'
+                key={category.id}
+                onClick={() => handleClick(category.id)}
+              >
 
-        ))
+                <ListItemText primary={category.title} className='category-list-item-text' />
+                {
+                  selectedCategory && selectedCategory.id === category.id && selectedCategory.isOpen ? <ExpandLess /> : <ExpandMore />
+                }
+              </ListItem>
+              <Collapse in={selectedCategory && selectedCategory.id === category.id && selectedCategory.isOpen} timeout="auto" unmountOnExit >
+                <List component="div" disablePadding>
+                  {
+                    category.children.map((subCategory, index) => {
+                      const labelId = `filter-checkbox-label-${index}`;
+
+                      return (
+                        <ListItem button className='category-list-nested-item' key={subCategory.id} onClick={() => handleClickSubCategoryFilter(subCategory, index)}>
+                          <ListItemIcon>
+                            <Checkbox
+                              edge="start"
+                              checked={checked.indexOf(index) !== -1}
+                              tabIndex={-1}
+                              disableRipple
+                              inputProps={{ 'aria-labelledby': labelId }}
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={subCategory.title} className='category-list-item-text' id={labelId}> sub text</ListItemText>
+                        </ListItem>
+                      )
+                    })
+                  }
+                </List>
+              </Collapse>
+            </List>
+
+          )
+        })
       }
     </div>
   )
