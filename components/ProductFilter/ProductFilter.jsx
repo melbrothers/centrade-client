@@ -82,6 +82,7 @@ const ProductFilter = ({ categories }) => {
                         <ListItem button className='category-list-nested-item' key={subCategory.id} onClick={() => handleClickSubCategoryFilter(subCategory, index)}>
                           <ListItemIcon>
                             <Checkbox
+                              color='primary'
                               edge="start"
                               checked={checked.indexOf(index) !== -1}
                               tabIndex={-1}
