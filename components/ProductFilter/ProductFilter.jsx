@@ -15,12 +15,15 @@ import { useState } from 'react';
 
 const ProductFilter = ({ categories }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  console.log(categories);
 
   const handleClick = (categoryId) => {
     if (categoryId) {
       if (selectedCategory && selectedCategory.id === categoryId) {
-        setSelectedCategory({ 'id': categoryId, 'isOpen': false });
+        if (selectedCategory.isOpen) {
+          setSelectedCategory({ 'id': categoryId, 'isOpen': false });
+        } else {
+          setSelectedCategory({ 'id': categoryId, 'isOpen': true });
+        }
       } else {
         setSelectedCategory({ 'id': categoryId, 'isOpen': true });
       }
