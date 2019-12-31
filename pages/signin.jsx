@@ -5,13 +5,13 @@ import { createStructuredSelector } from 'reselect';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import { selectCurrentUser, selectError, selectLoading } from '../redux/user/user.selectors';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Footer from '../components/Footer/Footer';
 
+import { selectCurrentUser, selectError, selectLoading } from '../redux/user/user.selectors';
 import { emailSignInStart } from '../redux/user/user.actions.js';
 
 import '../styles/signin.styles.scss';
