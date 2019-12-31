@@ -15,6 +15,8 @@ import { useState } from 'react';
 
 const ProductFilter = ({ categories }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(0);
+
   const [checked, setChecked] = React.useState([0]);
   const handleClick = (categoryId) => {
     if (categoryId) {
@@ -30,7 +32,7 @@ const ProductFilter = ({ categories }) => {
     }
   };
 
-  const handleClickSubCategoryFilter = (subcat, index) => {
+  const handleClickSubCategoryFilter = (subcatId, index) => {
     const currentIndex = checked.indexOf(index);
     const newChecked = [...checked];
     if (currentIndex === -1) {
@@ -38,7 +40,7 @@ const ProductFilter = ({ categories }) => {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
+    setSelectedSubCategory(subcatId);
     setChecked(newChecked);
 
   };
@@ -79,12 +81,12 @@ const ProductFilter = ({ categories }) => {
                       const labelId = `filter-checkbox-label-${index}`;
 
                       return (
-                        <ListItem button className='category-list-nested-item' key={subCategory.id} onClick={() => handleClickSubCategoryFilter(subCategory, index)}>
+                        <ListItem button className='category-list-nested-item' key={subCategory.id} onClick={() => handleClickSubCategoryFilter(subCategory.id, index)}>
                           <ListItemIcon>
                             <Checkbox
                               color='primary'
                               edge="start"
-                              checked={checked.indexOf(index) !== -1}
+                              checked={checked.indexOf(index) !== -1 && selectedSubCategory === subCategory.id}
                               tabIndex={-1}
                               disableRipple
                               inputProps={{ 'aria-labelledby': labelId }}
