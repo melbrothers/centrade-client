@@ -1,0 +1,7 @@
+const ProductActionTypes = {
+  GET_CATEGORY_START: 'GET_CATEGORY_START',
+  GET_CATEGORY_SUCCESS: 'GET_CATEGORY_SUCCESS',
+  GET_CATEGORY_FAILURE: 'GET_CATEGORY_FAILURE'
+}
+
+export default ProductActionTypes;
