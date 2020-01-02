@@ -15,6 +15,13 @@ const productReducer = (state = INITIAL_STATE, action) => {
         error: null,
         loading: true
       }
+    case ProductActionTypes.GET_PRODUCTS_START:
+      return {
+        ...state,
+        products: null,
+        error: null,
+        loading: true
+      }
     case ProductActionTypes.GET_CATEGORY_SUCCESS:
       return {
         ...state,
@@ -22,10 +29,24 @@ const productReducer = (state = INITIAL_STATE, action) => {
         error: null,
         loading: false
       }
+    case ProductActionTypes.GET_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        products: action.payload,
+        error: null,
+        loading: false
+      }
     case ProductActionTypes.GET_CATEGORY_FAILURE:
       return {
         ...state,
         categoryList: null,
+        error: action.payload,
+        loading: false
+      }
+    case ProductActionTypes.GET_PRODUCTS_FAILURE:
+      return {
+        ...state,
+        products: null,
         error: action.payload,
         loading: false
       }

@@ -14,3 +14,18 @@ export const getCategoryFailure = error => ({
   type: ProductActionTypes.GET_CATEGORY_FAILURE,
   payload: error
 });
+
+export const getProductsStart = (token) => ({
+  type: ProductActionTypes.GET_PRODUCTS_START,
+  payload: token
+});
+
+export const getProductsSuccess = products => ({
+  type: ProductActionTypes.GET_PRODUCTS_SUCCESS,
+  payload: products
+});
+
+export const getProductsFailure = error => ({
+  type: ProductActionTypes.GET_PRODUCTS_FAILURE,
+  payload: error
+});

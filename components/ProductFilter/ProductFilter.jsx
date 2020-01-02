@@ -32,17 +32,17 @@ const ProductFilter = ({ categories }) => {
     }
   };
 
-  const handleClickSubCategoryFilter = (subcatId, index) => {
-    const currentIndex = checked.indexOf(index);
+  const handleClickSubCategoryFilter = (subcatId, subcateIndex) => {
+    const currentIndex = checked.indexOf(subcateIndex);
     const newChecked = [...checked];
     if (currentIndex === -1) {
-      newChecked.push(index);
+      newChecked.push(subcateIndex);
     } else {
       newChecked.splice(currentIndex, 1);
     }
     setSelectedSubCategory(subcatId);
-    setChecked(newChecked);
 
+    setChecked(newChecked);
   };
 
   return (
@@ -86,7 +86,7 @@ const ProductFilter = ({ categories }) => {
                             <Checkbox
                               color='primary'
                               edge="start"
-                              checked={checked.indexOf(index) !== -1 && selectedSubCategory === subCategory.id}
+                              checked={checked.indexOf(index) !== -1 && selectedCategory && selectedCategory.id == category.id}
                               tabIndex={-1}
                               disableRipple
                               inputProps={{ 'aria-labelledby': labelId }}

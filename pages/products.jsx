@@ -4,7 +4,7 @@ import { createStructuredSelector } from 'reselect';
 import { useRouter } from 'next/router';
 
 import { selectCurrentUser } from '../redux/user/user.selectors';
-import { selectCurrentCategories } from '../redux/product/product.selectors';
+import { selectCurrentCategories, selectCurrentProducts } from '../redux/product/product.selectors';
 
 import { useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -21,7 +21,7 @@ import Searchbox from '../components/Searchbox/Searchbox';
 import ProductFilter from '../components/ProductFilter/ProductFilter';
 import ProductList from '../components/ProductList/ProductList';
 
-import { getCategoryStart } from '../redux/product/product.actions';
+import { getCategoryStart, getProductsStart } from '../redux/product/product.actions';
 import '../styles/products.styls.scss';
 
 function TabPanel(props) {
@@ -41,7 +41,7 @@ function TabPanel(props) {
   );
 }
 
-const Products = ({ currentUser, getCategoryListStart, currentCategories }) => {
+const Products = ({ currentUser, getCategoryListStart, getProductListStart, currentCategories, currentProducts }) => {
   const [value, setValue] = React.useState(0);
   const theme = useTheme();
   const router = useRouter();
@@ -49,7 +49,11 @@ const Products = ({ currentUser, getCategoryListStart, currentCategories }) => {
     if (!currentUser) {
       router.push('/');
     } else {
-      getCategoryListStart(currentUser);
+      async function runProducts() {
+        await getCategoryListStart(currentUser);
+        await getProductListStart(currentUser);
+      }
+      runProducts();
     }
   }, [currentUser]);
 
@@ -88,12 +92,11 @@ const Products = ({ currentUser, getCategoryListStart, currentCategories }) => {
             <TabPanel value={value} index={0} dir={theme.direction}>
               <Grid container spacing={3}>
                 <Grid item xs={4}>
-                  {currentCategories ?
-                    <ProductFilter categories={currentCategories} /> : null}
+                  {currentCategories ? <ProductFilter categories={currentCategories} /> : null}
                 </Grid>
                 <Grid item xs={8}>
                   <Searchbox />
-                  <ProductList />
+                  {currentProducts ? <ProductList products={currentProducts} /> : null}
                 </Grid>
               </Grid>
 
@@ -111,10 +114,12 @@ const Products = ({ currentUser, getCategoryListStart, currentCategories }) => {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  currentCategories: selectCurrentCategories
+  currentCategories: selectCurrentCategories,
+  currentProducts: selectCurrentProducts
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCategoryListStart: (token) => dispatch(getCategoryStart({ token }))
+  getCategoryListStart: (token) => dispatch(getCategoryStart({ token })),
+  getProductListStart: (token) => dispatch(getProductsStart({ token }))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Products);

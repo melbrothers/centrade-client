@@ -7,3 +7,5 @@ export const selectError = createSelector([selectProduct], (product) => product.
 export const selectLoading = createSelector([selectProduct], (product) => product.loading);
 
 export const selectCurrentCategories = createSelector([selectProduct], (product) => product.categoryList);
+
+export const selectCurrentProducts = createSelector([selectProduct], (product) => product.products);
