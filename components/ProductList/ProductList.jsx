@@ -53,7 +53,7 @@ const ProductList = ({ products }) => {
                   </Button>
                   <Button>{
                     product.counter
-                  }</Button>
+                  }&nbsp;</Button>
                   <Button onClick={() => onClickHandleAdd(product)}>
                     <AddIcon />
                   </Button>
