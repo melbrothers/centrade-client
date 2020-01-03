@@ -16,7 +16,6 @@ import { useState } from 'react';
 const ProductFilter = ({ categories }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const [checked, setChecked] = React.useState([0]);
   const [checkedChildren, setCheckedChildren] = useState([]);
   const handleClick = (categoryId) => {
     if (categoryId) {
@@ -32,9 +31,9 @@ const ProductFilter = ({ categories }) => {
     }
   };
 
-  const handleClickSubCategoryFilter = (subcatId, subcateIndex) => {
+  const handleClickSubCategoryFilter = (subcatId) => {
     const currentChildrenIndex = checkedChildren.indexOf(subcatId);
-    const childrenChecked = [...checkedChildren];
+    let childrenChecked = checkedChildren;
 
     if (currentChildrenIndex === -1) {
       childrenChecked.push(subcatId);
@@ -81,7 +80,7 @@ const ProductFilter = ({ categories }) => {
                       const labelId = `filter-checkbox-label-${index}`;
 
                       return (
-                        <ListItem button className='category-list-nested-item' key={subCategory.id} onClick={() => handleClickSubCategoryFilter(subCategory.id, index)}>
+                        <ListItem button className='category-list-nested-item' key={subCategory.id} onClick={() => handleClickSubCategoryFilter(subCategory.id)}>
                           <ListItemIcon>
                             <Checkbox
                               color='primary'

@@ -7,8 +7,8 @@ export function* getCategories({ payload: { token } }) {
   try {
     const categories = yield getCategoryList(token, 1);
     console.log(categories);
-    if (categories) {
-      yield put(getCategorySuccess(categories));
+    if (categories && categories.data) {
+      yield put(getCategorySuccess(categories.data));
     } else {
       yield put(getCategoryFailure(categories.message))
     }
@@ -21,8 +21,8 @@ export function* getProducts({ payload: { token } }) {
   try {
     const products = yield getProductList(token, 1);
     console.log(products);
-    if (products) {
-      yield put(getProductsSuccess(products));
+    if (products && products.data) {
+      yield put(getProductsSuccess(products.data));
     } else {
       yield put(getProductsFailure(products.message));
     }

@@ -1,37 +1,19 @@
+import api from '../../src/api';
 export const getCategoryList = async (token, pageNumber) => {
-  const requestUrl = `https://centrade-api.herokuapp.com/api/categories?page=${pageNumber}`;
-  const settings = {
-    method: 'GET',
+  const requestUrl = `/api/categories?page=${pageNumber}`;
+  return api.get(requestUrl, {
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     }
-  };
-  try {
-    const fetchResponse = await fetch(requestUrl, settings);
-    const data = await fetchResponse.json();
-    return data;
-  } catch (e) {
-    return e;
-  }
-};
+  });
+}
+
 
 export const getProductList = async (token, pageNumber) => {
-  const requestUrl = `https://centrade-api.herokuapp.com/api/products?page=${pageNumber}`;
-  const settings = {
-    method: 'GET',
+  const requestUrl = `/api/products?page=${pageNumber}`;
+  return api.get(requestUrl, {
     headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     }
-  };
-  try {
-    const fetchResponse = await fetch(requestUrl, settings);
-    const data = await fetchResponse.json();
-    return data;
-  } catch (e) {
-    return e;
-  }
+  });
 }

@@ -7,8 +7,8 @@ export function* signInWithEmail({ payload: { email, password } }) {
   try {
     const signInResult = yield signInWithEmailAndPassword(email, password);
     console.log(signInResult);
-    if (signInResult.token) {
-      yield put(signInSuccess(signInResult.token));
+    if (signInResult && signInResult.data && signInResult.data.token) {
+      yield put(signInSuccess(signInResult.data.token));
     } else {
       yield put(signInFailure(signInResult.message))
     }
@@ -31,7 +31,7 @@ export function* signUp({ payload: { email, password, name, abn } }) {
   try {
     const signUPResult = yield signUpWithEmailAndPassword(email, password, name, abn);
     console.log(signUPResult);
-    if (signUPResult.token) {
+    if (signUPResult && signUPResult.data && signUPResult.data.token) {
       yield put(signUpSuccess(signUPResult.token));
     } else {
       yield put(signUpFailure(signUPResult.detail))
