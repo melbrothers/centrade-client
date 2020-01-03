@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import Avatar from '@material-ui/core/Avatar';
 import { Typography, Grid, ButtonGroup, Button, Card } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -8,10 +7,8 @@ import RemoveIcon from '@material-ui/icons/Remove';
 
 import './productList.styles.scss';
 
-
 const ProductList = ({ products }) => {
   const [counter, setCounter] = useState(0);
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const onClickHandleAdd = product => {
     let cnt = counter + 1;
@@ -46,16 +43,17 @@ const ProductList = ({ products }) => {
                 </Grid>
               </Grid>
               <div className='quantity'>
-                <Typography variant='subtitle2' component='h6'>Quantity</Typography>
+                {/* <Typography variant='subtitle2' component='h6'>Quantity</Typography> */}
                 <ButtonGroup aria-label="outlined primary button group">
-                  <Button onClick={() => onClickHandleMinus(product)}>
+                  {/* <Button onClick={() => onClickHandleMinus(product)}>
                     <RemoveIcon />
                   </Button>
                   <Button>{
                     product.counter
-                  }&nbsp;</Button>
-                  <Button onClick={() => onClickHandleAdd(product)}>
-                    <AddIcon />
+                  }&nbsp;
+                  </Button> */}
+                  <Button onClick={() => onClickHandleAdd(product)} color='primary' endIcon={<AddIcon />}>
+                    Add to cart
                   </Button>
                 </ButtonGroup>
               </div>
@@ -63,7 +61,6 @@ const ProductList = ({ products }) => {
           )
         })
       }
-
     </div>
   );
 }

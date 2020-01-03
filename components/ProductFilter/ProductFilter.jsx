@@ -15,9 +15,9 @@ import { useState } from 'react';
 
 const ProductFilter = ({ categories }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState(0);
 
   const [checked, setChecked] = React.useState([0]);
+  const [checkedChildren, setCheckedChildren] = useState([]);
   const handleClick = (categoryId) => {
     if (categoryId) {
       if (selectedCategory && selectedCategory.id === categoryId) {
@@ -33,16 +33,16 @@ const ProductFilter = ({ categories }) => {
   };
 
   const handleClickSubCategoryFilter = (subcatId, subcateIndex) => {
-    const currentIndex = checked.indexOf(subcateIndex);
-    const newChecked = [...checked];
-    if (currentIndex === -1) {
-      newChecked.push(subcateIndex);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-    setSelectedSubCategory(subcatId);
+    const currentChildrenIndex = checkedChildren.indexOf(subcatId);
+    const childrenChecked = [...checkedChildren];
 
-    setChecked(newChecked);
+    if (currentChildrenIndex === -1) {
+      childrenChecked.push(subcatId);
+    } else {
+      childrenChecked.splice(subcatId, 1);
+    }
+
+    setCheckedChildren(childrenChecked);
   };
 
   return (
@@ -86,7 +86,7 @@ const ProductFilter = ({ categories }) => {
                             <Checkbox
                               color='primary'
                               edge="start"
-                              checked={checked.indexOf(index) !== -1 && selectedCategory && selectedCategory.id == category.id}
+                              checked={checkedChildren.indexOf(subCategory.id) !== -1}
                               tabIndex={-1}
                               disableRipple
                               inputProps={{ 'aria-labelledby': labelId }}
