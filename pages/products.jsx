@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { useRouter } from 'next/router';
+import { useRouter, Router } from 'next/router';
 
 import { selectCurrentUser } from '../redux/user/user.selectors';
 import { selectCurrentCategories, selectCurrentProducts } from '../redux/product/product.selectors';
@@ -42,6 +42,7 @@ function TabPanel(props) {
 }
 
 const Products = ({ currentUser, getCategoryListStart, getProductListStart, currentCategories, currentProducts }) => {
+  console.log(currentProducts);
   const [value, setValue] = React.useState(0);
   const theme = useTheme();
   const router = useRouter();
@@ -56,6 +57,17 @@ const Products = ({ currentUser, getCategoryListStart, getProductListStart, curr
       runProducts();
     }
   }, [currentUser]);
+
+  const handleRouterComplete = async (url) => {
+    // const param = window.location.search.slice(1);
+    if (url) {
+      await getProductListStart(currentUser);
+    }
+
+    Router.events.off('routeChangeComplete', handleRouterComplete);
+  }
+
+  Router.events.on('routeChangeComplete', handleRouterComplete);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

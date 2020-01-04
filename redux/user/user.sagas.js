@@ -9,11 +9,10 @@ export function* signInWithEmail({ payload: { email, password } }) {
     console.log(signInResult);
     if (signInResult && signInResult.data && signInResult.data.token) {
       yield put(signInSuccess(signInResult.data.token));
-    } else {
-      yield put(signInFailure(signInResult.message))
     }
   } catch (error) {
-    yield put(signInFailure(error));
+    console.log(error);
+    yield put(signInFailure(error.response.data.message));
   }
 }
 
@@ -32,12 +31,11 @@ export function* signUp({ payload: { email, password, name, abn } }) {
     const signUPResult = yield signUpWithEmailAndPassword(email, password, name, abn);
     console.log(signUPResult);
     if (signUPResult && signUPResult.data && signUPResult.data.token) {
-      yield put(signUpSuccess(signUPResult.token));
-    } else {
-      yield put(signUpFailure(signUPResult.detail))
+      yield put(signUpSuccess(signUPResult.data.token));
     }
-  } catch (error) {
-    yield put(signUpFailure(error));
+  } catch (err) {
+    console.log(typeof (err));
+    yield put(signUpFailure(err.response.data.detail));
   }
 }
 

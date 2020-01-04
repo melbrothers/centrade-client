@@ -1,4 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+
+import { getCategoryStart, getProductsStart } from '../../redux/product/product.actions';
+
+import Router from 'next/router';
+
 import ListSubheader from '@material-ui/core/ListSubheader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -13,7 +21,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import './productFilter.styles.scss';
 import { useState } from 'react';
 
-const ProductFilter = ({ categories }) => {
+const ProductFilter = ({ categories, currentUser, getProductListStart, getCategoryListStart }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const [checkedChildren, setCheckedChildren] = useState([]);
@@ -33,15 +41,35 @@ const ProductFilter = ({ categories }) => {
 
   const handleClickSubCategoryFilter = (subcatId) => {
     const currentChildrenIndex = checkedChildren.indexOf(subcatId);
-    let childrenChecked = checkedChildren;
+    let childrenChecked = [...checkedChildren];
 
     if (currentChildrenIndex === -1) {
       childrenChecked.push(subcatId);
     } else {
-      childrenChecked.splice(subcatId, 1);
+      childrenChecked = childrenChecked.splice(subcatId, 1);
     }
 
     setCheckedChildren(childrenChecked);
+    console.log(childrenChecked);
+
+    if (childrenChecked.length === 0) {
+      Router.push(`/products`);
+    }
+
+    if (childrenChecked.length === 1) {
+      Router.push(`/products?category.id=${subcatId}`);
+    }
+
+    if (childrenChecked.length > 1) {
+      let query = '';
+      childrenChecked.map(checkedNumber => {
+        query = query.concat(`category.id[]=${checkedNumber}&`);
+
+      });
+      Router.push(`/products?${query.slice(0, -1)}`);
+    }
+
+
   };
 
   return (
@@ -80,9 +108,10 @@ const ProductFilter = ({ categories }) => {
                       const labelId = `filter-checkbox-label-${index}`;
 
                       return (
-                        <ListItem button className='category-list-nested-item' key={subCategory.id} onClick={() => handleClickSubCategoryFilter(subCategory.id)}>
+                        <ListItem button className='category-list-nested-item' key={subCategory.id} >
                           <ListItemIcon>
                             <Checkbox
+                              onChange={() => handleClickSubCategoryFilter(subCategory.id)}
                               color='primary'
                               edge="start"
                               checked={checkedChildren.indexOf(subCategory.id) !== -1}
@@ -107,4 +136,13 @@ const ProductFilter = ({ categories }) => {
   )
 };
 
-export default ProductFilter;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getCategoryListStart: (token) => dispatch(getCategoryStart({ token })),
+  getProductListStart: (token) => dispatch(getProductsStart({ token }))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductFilter);
