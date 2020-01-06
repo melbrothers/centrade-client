@@ -17,3 +17,10 @@ export const getProductList = async (token, categoryfilterQuery = '', pageNumber
     // }
   });
 }
+
+export const getProductListByPage = async (navUrl) => {
+  console.log('nav', navUrl);
+  return api.get(navUrl, {
+  });
+}
+

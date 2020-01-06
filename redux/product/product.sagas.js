@@ -1,9 +1,9 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { getCategoryList, getProductList } from './product.util';
+import { getCategoryList, getProductList, getProductListByPage } from './product.util';
 import { getRefreshToken } from '../user/user.util';
 
 import ProductActionTypes from './product.types';
-import { getCategorySuccess, getCategoryFailure, getProductsSuccess, getProductsFailure } from './product.actions';
+import { getCategorySuccess, getCategoryFailure, getProductsSuccess, getProductsFailure, getProductsPage } from './product.actions';
 
 export function* getCategories({ payload: { token } }) {
   try {
@@ -34,6 +34,22 @@ export function* getProducts({ payload: { token } }) {
     console.log(products);
     if (products && products.data['hydra:member']) {
       yield put(getProductsSuccess(products.data['hydra:member']));
+      yield put(getProductsPage(products.data['hydra:view']));
+    } else {
+      yield put(getProductsFailure(products.message));
+    }
+  } catch (error) {
+    console.log(error.response);
+    yield put(getProductsFailure(error));
+  }
+}
+export function* getProductsByPage({ payload: { navUrl } }) {
+  try {
+    const products = yield getProductListByPage(navUrl);
+    console.log(products);
+    if (products && products.data['hydra:member']) {
+      yield put(getProductsSuccess(products.data['hydra:member']));
+      yield put(getProductsPage(products.data['hydra:view']));
     } else {
       yield put(getProductsFailure(products.message));
     }
@@ -51,11 +67,16 @@ export function* onGetProductsStart() {
   yield takeLatest(ProductActionTypes.GET_PRODUCTS_START, getProducts);
 }
 
+export function* onGetProductsByPageStart() {
+  yield takeLatest(ProductActionTypes.GET_PRODUCTS_BY_PAGE, getProductsByPage);
+}
+
 export function* productSagas() {
   yield all(
     [
       call(onGetCategoryStart),
-      call(onGetProductsStart)
+      call(onGetProductsStart),
+      call(onGetProductsByPageStart)
     ]
   );
 }

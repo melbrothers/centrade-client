@@ -5,8 +5,8 @@ import './banner.styles.scss';
 
 const Banner = ({ imageUrl }) => (
   <div className='banner'>
-    <Box component='div' m={1}>
-      <img src={imageUrl} alt="banner image" width='100%' />
+    <Box component='div'>
+      <img src={imageUrl} alt="banner image" width='100%' className='banner-image' />
     </Box>
   </div>
 );

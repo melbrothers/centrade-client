@@ -1,18 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { useRouter, Router } from 'next/router';
+import { useRouter } from 'next/router';
 
 import { selectCurrentUser } from '../redux/user/user.selectors';
-import { selectCurrentCategories, selectCurrentProducts } from '../redux/product/product.selectors';
+import { selectCurrentCategories, selectCurrentProducts, selectCurrentProductsPageView } from '../redux/product/product.selectors';
 
 import { useTheme } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import SwipeableViews from 'react-swipeable-views';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
@@ -24,6 +20,7 @@ import ProductList from '../components/ProductList/ProductList';
 import { getCategoryStart, getProductsStart } from '../redux/product/product.actions';
 import '../styles/products.styls.scss';
 import Banner from '../components/Banner/Banner';
+import Pagination from '../components/Pagination/Pagination';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,7 +39,7 @@ function TabPanel(props) {
   );
 }
 
-const Products = ({ currentUser, getCategoryListStart, getProductListStart, currentCategories, currentProducts }) => {
+const Products = ({ currentUser, getCategoryListStart, getProductListStart, currentCategories, currentProducts, currentProductsPageView }) => {
   console.log(currentProducts);
   const [value, setValue] = React.useState(0);
   const theme = useTheme();
@@ -91,9 +88,9 @@ const Products = ({ currentUser, getCategoryListStart, getProductListStart, curr
             <Grid item xs={8}>
               <Searchbox />
               {currentProducts ? <ProductList products={currentProducts} /> : null}
+              <Pagination pageView={currentProductsPageView} />
             </Grid>
           </Grid>
-
         </div>
       </Container>
     </div>
@@ -103,11 +100,13 @@ const Products = ({ currentUser, getCategoryListStart, getProductListStart, curr
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   currentCategories: selectCurrentCategories,
-  currentProducts: selectCurrentProducts
+  currentProducts: selectCurrentProducts,
+  currentProductsPageView: selectCurrentProductsPageView
 });
 
 const mapDispatchToProps = dispatch => ({
   getCategoryListStart: (token) => dispatch(getCategoryStart({ token })),
   getProductListStart: (token) => dispatch(getProductsStart({ token }))
 });
+
 export default connect(mapStateToProps, mapDispatchToProps)(Products);
