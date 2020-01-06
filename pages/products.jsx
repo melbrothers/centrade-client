@@ -40,39 +40,14 @@ function TabPanel(props) {
 }
 
 const Products = ({ currentUser, getCategoryListStart, getProductListStart, currentCategories, currentProducts, currentProductsPageView }) => {
-  console.log(currentProducts);
   const [value, setValue] = React.useState(0);
-  const theme = useTheme();
-  const router = useRouter();
   useEffect(() => {
-
     async function runProducts() {
       await getCategoryListStart(currentUser);
       await getProductListStart(currentUser);
     }
     runProducts();
-
   }, [currentUser]);
-
-  // const handleRouterComplete = async (url) => {
-  //   // const param = window.location.search.slice(1);
-  //   if (url.indexOf('category.id') > -1) {
-  //     console.log(url);
-  //     await getProductListStart(currentUser);
-  //   }
-
-  //   Router.events.off('routeChangeComplete', handleRouterComplete);
-  // }
-
-  // Router.events.on('routeChangeComplete', handleRouterComplete);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const handleChangeIndex = index => {
-    setValue(index);
-  };
 
   return (
     <div className='products'>

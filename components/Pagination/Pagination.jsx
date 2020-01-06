@@ -12,7 +12,6 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import './pagination.styles.scss';
 
 const Pagination = ({ pageView, getProductListByPageStart }) => {
-  console.log(pageView);
   const handlePageNavClick = (navUrl) => {
     getProductListByPageStart(navUrl);
   }

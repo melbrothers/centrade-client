@@ -8,20 +8,15 @@ import { getCategorySuccess, getCategoryFailure, getProductsSuccess, getProducts
 export function* getCategories({ payload: { token } }) {
   try {
     const categories = yield getCategoryList(token, 1);
-    console.log(categories);
     if (categories && categories.data['hydra:member']) {
       yield put(getCategorySuccess(categories.data['hydra:member']));
     } else {
       yield put(getCategoryFailure(categories.message))
     }
   } catch (error) {
-    console.log(error);
     if (error.response.status === 401) {
-      console.log(error.response.status);
       const userToken = localStorage.getItem('user_token');
       const refreshToken = yield getRefreshToken(userToken);
-      console.log(refreshToken);
-
     }
     yield put(getCategoryFailure(error));
   }
@@ -31,7 +26,6 @@ export function* getProducts({ payload: { token } }) {
   try {
     const queryParams = window.location.search.slice(1);
     const products = yield getProductList(token, queryParams, 1);
-    console.log(products);
     if (products && products.data['hydra:member']) {
       yield put(getProductsSuccess(products.data['hydra:member']));
       yield put(getProductsPage(products.data['hydra:view']));
@@ -39,14 +33,12 @@ export function* getProducts({ payload: { token } }) {
       yield put(getProductsFailure(products.message));
     }
   } catch (error) {
-    console.log(error.response);
     yield put(getProductsFailure(error));
   }
 }
 export function* getProductsByPage({ payload: { navUrl } }) {
   try {
     const products = yield getProductListByPage(navUrl);
-    console.log(products);
     if (products && products.data['hydra:member']) {
       yield put(getProductsSuccess(products.data['hydra:member']));
       yield put(getProductsPage(products.data['hydra:view']));
@@ -54,7 +46,6 @@ export function* getProductsByPage({ payload: { navUrl } }) {
       yield put(getProductsFailure(products.message));
     }
   } catch (error) {
-    console.log(error.response);
     yield put(getProductsFailure(error));
   }
 }
