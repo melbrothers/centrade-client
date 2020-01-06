@@ -1,5 +1,7 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
 import { getCategoryList, getProductList } from './product.util';
+import { getRefreshToken } from '../user/user.util';
+
 import ProductActionTypes from './product.types';
 import { getCategorySuccess, getCategoryFailure, getProductsSuccess, getProductsFailure } from './product.actions';
 
@@ -13,6 +15,14 @@ export function* getCategories({ payload: { token } }) {
       yield put(getCategoryFailure(categories.message))
     }
   } catch (error) {
+    console.log(error);
+    if (error.response.status === 401) {
+      console.log(error.response.status);
+      const userToken = localStorage.getItem('user_token');
+      const refreshToken = yield getRefreshToken(userToken);
+      console.log(refreshToken);
+
+    }
     yield put(getCategoryFailure(error));
   }
 }
@@ -28,6 +38,7 @@ export function* getProducts({ payload: { token } }) {
       yield put(getProductsFailure(products.message));
     }
   } catch (error) {
+    console.log(error.response);
     yield put(getProductsFailure(error));
   }
 }

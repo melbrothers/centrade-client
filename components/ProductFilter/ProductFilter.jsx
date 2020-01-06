@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
@@ -19,12 +19,17 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import './productFilter.styles.scss';
-import { useState } from 'react';
 
 const ProductFilter = ({ categories, currentUser, getProductListStart, getCategoryListStart }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const [checkedChildren, setCheckedChildren] = useState([]);
+
+  useEffect(() => {
+    return () => {
+      Router.events.off('routeChangeComplete', handleRouterComplete);
+    };
+  }, []);
   const handleClick = (categoryId) => {
     if (categoryId) {
       if (selectedCategory && selectedCategory.id === categoryId) {
@@ -46,31 +51,39 @@ const ProductFilter = ({ categories, currentUser, getProductListStart, getCatego
     if (currentChildrenIndex === -1) {
       childrenChecked.push(subcatId);
     } else {
-      childrenChecked = childrenChecked.splice(subcatId, 1);
+      childrenChecked = childrenChecked.filter(value => value !== childrenChecked[currentChildrenIndex]);
     }
 
     setCheckedChildren(childrenChecked);
     console.log(childrenChecked);
 
     if (childrenChecked.length === 0) {
-      Router.push(`/products`);
+      Router.replace(`/products`);
     }
 
     if (childrenChecked.length === 1) {
-      Router.push(`/products?category.id=${subcatId}`);
+      Router.replace(`/products?category.id=${subcatId}`);
     }
 
     if (childrenChecked.length > 1) {
       let query = '';
       childrenChecked.map(checkedNumber => {
         query = query.concat(`category.id[]=${checkedNumber}&`);
-
       });
-      Router.push(`/products?${query.slice(0, -1)}`);
+      Router.replace(`/products?${query.slice(0, -1)}`);
     }
-
-
   };
+
+  const handleRouterComplete = async (url) => {
+    // const param = window.location.search.slice(1);
+    if (url.indexOf('category.id') > -1) {
+      console.log(url);
+      await getProductListStart(currentUser);
+    }
+    Router.events.off('routeChangeComplete', handleRouterComplete);
+  }
+
+  Router.events.on('routeChangeComplete', handleRouterComplete);
 
   return (
     <div className='product-filter'>

@@ -1,5 +1,6 @@
 import React from 'react';
-// import withReduxStore from '../lib/with-redux-store';
+import axios from 'axios';
+
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
@@ -20,6 +21,14 @@ class MyApp extends App {
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
+  }
+
+  componentWillUnmount() {
+    // axios.interceptors.request.eject(authInterceptor);
+  }
+
+  componentDidUpdate() {
+
   }
 
   static async getInitialProps({ Component, ctx }) {

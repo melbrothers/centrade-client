@@ -10,6 +10,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case UserActionTypes.EMAIL_SIGN_IN_START:
     case UserActionTypes.SIGN_UP_START:
+    case UserActionTypes.GET_REFRESHTOKEN_START:
       return {
         ...state,
         currentUser: null,
@@ -18,6 +19,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
       }
     case UserActionTypes.SIGN_IN_SUCCESS:
     case UserActionTypes.SIGN_UP_SUCCESS:
+    case UserActionTypes.GET_REFRESHTOKEN_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
@@ -34,6 +36,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case UserActionTypes.SIGN_IN_FAILURE:
     case UserActionTypes.SIGN_OUT_FAILURE:
     case UserActionTypes.SIGN_UP_FAILURE:
+    case UserActionTypes.GET_REFRESHTOKEN_FAILURE:
       return {
         ...state,
         currentUser: null,

@@ -58,3 +58,18 @@ export const signUpFailure = error => ({
   type: UserActionTypes.SIGN_UP_FAILURE,
   payload: error
 });
+
+export const getRefreshtokenStart = token => ({
+  type: UserActionTypes.GET_REFRESHTOKEN_START,
+  payload: token
+});
+
+export const getRefreshtokenSuccess = refreshedToken => ({
+  type: UserActionTypes.GET_PRODUCTS_SUCCESS,
+  payload: refreshedToken
+});
+
+export const getRefreshtokenFailure = error => ({
+  type: UserActionTypes.GET_REFRESHTOKEN_FAILURE,
+  payload: error
+});

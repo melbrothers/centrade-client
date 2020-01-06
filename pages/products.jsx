@@ -47,27 +47,26 @@ const Products = ({ currentUser, getCategoryListStart, getProductListStart, curr
   const theme = useTheme();
   const router = useRouter();
   useEffect(() => {
-    if (!currentUser) {
-      router.push('/');
-    } else {
-      async function runProducts() {
-        await getCategoryListStart(currentUser);
-        await getProductListStart(currentUser);
-      }
-      runProducts();
-    }
-  }, [currentUser]);
 
-  const handleRouterComplete = async (url) => {
-    // const param = window.location.search.slice(1);
-    if (url) {
+    async function runProducts() {
+      await getCategoryListStart(currentUser);
       await getProductListStart(currentUser);
     }
+    runProducts();
 
-    Router.events.off('routeChangeComplete', handleRouterComplete);
-  }
+  }, [currentUser]);
 
-  Router.events.on('routeChangeComplete', handleRouterComplete);
+  // const handleRouterComplete = async (url) => {
+  //   // const param = window.location.search.slice(1);
+  //   if (url.indexOf('category.id') > -1) {
+  //     console.log(url);
+  //     await getProductListStart(currentUser);
+  //   }
+
+  //   Router.events.off('routeChangeComplete', handleRouterComplete);
+  // }
+
+  // Router.events.on('routeChangeComplete', handleRouterComplete);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

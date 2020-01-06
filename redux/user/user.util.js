@@ -17,3 +17,11 @@ export const signUpWithEmailAndPassword = async (email, password, companyName, a
     abn
   }));
 };
+
+
+export const getRefreshToken = async (token) => {
+  const getTokenUrl = '/api/token/refresh';
+  return api.post(getTokenUrl, JSON.stringify({
+    refresh_token: token
+  }));
+}

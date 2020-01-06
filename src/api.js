@@ -8,4 +8,10 @@ const api = axios.create({
   },
 });
 
+// api.interceptors.request.use((response) => {
+//   return console.log('before request', response);
+// }, error => {
+//   console.log(error);
+// });
+
 export default api;

@@ -8,6 +8,7 @@ export function* signInWithEmail({ payload: { email, password } }) {
     const signInResult = yield signInWithEmailAndPassword(email, password);
     console.log(signInResult);
     if (signInResult && signInResult.data && signInResult.data.token) {
+      localStorage.setItem('user_token', signInResult.data.token);
       yield put(signInSuccess(signInResult.data.token));
     }
   } catch (error) {
