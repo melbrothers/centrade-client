@@ -10,8 +10,6 @@ import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import HomeIcon from '@material-ui/icons/Home';
-import LocalMallIcon from '@material-ui/icons/LocalMall';
-import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 
 import './subheader.styles.scss';
 
@@ -23,32 +21,23 @@ const Subheader = () => {
     <div className='subheader'>
       <Grid container justify='space-evenly'>
         <Grid item xs={12} lg='auto' className='subheader-item'>
-          <Link href='/products' >
-            <a className={`subheader-item-link ${router.pathname === '/products' ? 'active' : null}`}>
+          <Link href='/home' >
+            <a className={`subheader-item-link ${router.pathname === '/home' ? 'active' : null}`}>
               <HomeIcon />
               Home
           </a>
           </Link>
-        </Grid>
 
+
+        </Grid>
         <Grid item xs={12} lg='auto' className='subheader-item'>
-          <Link href='/checkout' >
-            <a className={`subheader-item-link ${router.pathname === '/checkout' ? 'active' : null}`}>
-              <LocalMallIcon />
-              Checkout
+          <Link href='/order' >
+            <a className={`subheader-item-link ${router.pathname === '/order' ? 'active' : null}`}>
+              <AddShoppingCartIcon />
+              Order
           </a>
           </Link>
         </Grid>
-
-        <Grid item xs={12} lg='auto' className='subheader-item'>
-          <Link href='/quote' >
-            <a className={`subheader-item-link ${router.pathname === '/quote' ? 'active' : null}`}>
-              <QuestionAnswerIcon />
-              Quote
-          </a>
-          </Link>
-        </Grid>
-
         <Grid item xs={12} lg='auto' className='subheader-item'>
           <Link href='/invoice'>
             <a className={`subheader-item-link ${router.pathname === '/invoice' ? 'active' : null}`}>
@@ -56,8 +45,17 @@ const Subheader = () => {
               Invoice
           </a>
           </Link>
-        </Grid>
 
+        </Grid>
+        <Grid item xs={12} lg='auto' className='subheader-item'>
+          <Link href='/products'>
+            <a className={`subheader-item-link ${router.pathname === '/products' ? 'active' : null}`} >
+              <MonetizationOnIcon />
+              Products
+
+            </a>
+          </Link>
+        </Grid>
         <Grid item xs={12} lg='auto' className='subheader-item'>
           <Link href='/message'>
             <a className={`subheader-item-link ${router.pathname === '/message' ? 'active' : null}`}>
@@ -66,7 +64,6 @@ const Subheader = () => {
           </a>
           </Link>
         </Grid>
-
         <Grid item xs={12} lg='auto' className='subheader-item'>
           <Link href='/paymenthistory'>
             <a className={`subheader-item-link ${router.pathname === '/paymenthistory' ? 'active' : null}`}>

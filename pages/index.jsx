@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import MuiLink from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 
-import Header from '../components/Header/Header';
+import Header from '../components/Header/Header.provider';
 import Footer from '../components/Footer/Footer';
 import SectionBox from '../components/SectionBox/SectionBox';
 

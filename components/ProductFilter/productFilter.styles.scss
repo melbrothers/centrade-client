@@ -1,3 +1,22 @@
-.category-list-nested-item {
-  padding-left: 40px!important;
+@import '../../assets/variables';
+.category-list {
+  .catetory-list-item {
+    background-color: $light-blue;
+    color: white;
+    
+    &:hover {
+      background-color: $blue;
+    }
+    .category-list-item-text {
+      span {
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+     
+    }
+  }
+
+  .category-list-nested-item {
+    padding-left: 40px!important;
+  }
 }

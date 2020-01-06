@@ -23,7 +23,6 @@ import ProductList from '../components/ProductList/ProductList';
 
 import { getCategoryStart, getProductsStart } from '../redux/product/product.actions';
 import '../styles/products.styls.scss';
-import Banner from '../components/Banner/Banner';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -81,19 +80,43 @@ const Products = ({ currentUser, getCategoryListStart, getProductListStart, curr
     <div className='products'>
       <Subheader />
       <Container className='products-section'>
-        <Typography variant='h5' component="h3" gutterBottom>Home</Typography>
-        <Banner imageUrl="https://www.huafone.com/wp-content/uploads/2019/09/Kit3-Web-Banner-1024x320.png" />
+        <Typography variant='h5' component="h3" gutterBottom>Products</Typography>
         <div className='products-tabs'>
-          <Grid container spacing={3}>
-            <Grid item xs={4}>
-              {currentCategories ? <ProductFilter categories={currentCategories} /> : null}
-            </Grid>
-            <Grid item xs={8}>
-              <Searchbox />
-              {currentProducts ? <ProductList products={currentProducts} /> : null}
-            </Grid>
-          </Grid>
+          <AppBar position="static" color="default">
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              indicatorColor="primary"
+              textColor="primary"
+              variant="fullWidth"
+              aria-label="full width tabs example"
+            >
+              <Tab label="Products" />
+              <Tab label="Add Product" />
+            </Tabs>
+          </AppBar>
+          <SwipeableViews
+            axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+            index={value}
+            onChangeIndex={handleChangeIndex}
+          >
+            <TabPanel value={value} index={0} dir={theme.direction}>
+              <Grid container spacing={3}>
+                <Grid item xs={4}>
+                  {currentCategories ? <ProductFilter categories={currentCategories} /> : null}
+                </Grid>
+                <Grid item xs={8}>
+                  <Searchbox />
+                  {currentProducts ? <ProductList products={currentProducts} /> : null}
+                </Grid>
+              </Grid>
 
+            </TabPanel>
+            <TabPanel value={value} index={1} dir={theme.direction}>
+              Add Product
+          </TabPanel>
+
+          </SwipeableViews>
         </div>
       </Container>
     </div>

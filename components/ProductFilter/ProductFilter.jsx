@@ -58,11 +58,11 @@ const ProductFilter = ({ categories, currentUser, getProductListStart, getCatego
     console.log(childrenChecked);
 
     if (childrenChecked.length === 0) {
-      Router.replace(`/products`);
+      Router.push(`/products`);
     }
 
     if (childrenChecked.length === 1) {
-      Router.replace(`/products?category.id=${subcatId}`);
+      Router.push(`/products?category.id=${subcatId}`, `/products?category=${subcatId}`, { shallow: true });
     }
 
     if (childrenChecked.length > 1) {
@@ -70,14 +70,14 @@ const ProductFilter = ({ categories, currentUser, getProductListStart, getCatego
       childrenChecked.map(checkedNumber => {
         query = query.concat(`category.id[]=${checkedNumber}&`);
       });
-      Router.replace(`/products?${query.slice(0, -1)}`);
+      Router.push(`/products?${query.slice(0, -1)}`, `/products?${query.slice(0, -1)}`, { shallow: true });
     }
   };
 
+
+
   const handleRouterComplete = async (url) => {
-    // const param = window.location.search.slice(1);
     if (url.indexOf('category.id') > -1) {
-      console.log(url);
       await getProductListStart(currentUser);
     }
     Router.events.off('routeChangeComplete', handleRouterComplete);
@@ -104,6 +104,7 @@ const ProductFilter = ({ categories, currentUser, getProductListStart, getCatego
             >
               <ListItem
                 button
+                color='primary'
                 className='catetory-list-item'
                 key={category.id}
                 onClick={() => handleClick(category.id)}
