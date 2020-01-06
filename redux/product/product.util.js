@@ -11,9 +11,10 @@ export const getCategoryList = async (token, pageNumber) => {
 
 export const getProductList = async (token, categoryfilterQuery = '', pageNumber) => {
   const requestUrl = `/api/products?${categoryfilterQuery}&page=${pageNumber}`;
-  return api.get(requestUrl, {
-    // headers: {
-    //   Authorization: `Bearer ${token}`
-    // }
-  });
+  return api.get(requestUrl);
 }
+
+export const getProductListByPage = async (navUrl) => {
+  return api.get(navUrl);
+}
+

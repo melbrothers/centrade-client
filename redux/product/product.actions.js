@@ -29,3 +29,13 @@ export const getProductsFailure = error => ({
   type: ProductActionTypes.GET_PRODUCTS_FAILURE,
   payload: error
 });
+
+export const getProductsPage = pageView => ({
+  type: ProductActionTypes.GET_PRODUCTS_PAGE,
+  payload: pageView
+});
+
+export const getProductsByPageStart = (navUrl) => ({
+  type: ProductActionTypes.GET_PRODUCTS_BY_PAGE,
+  payload: navUrl
+});

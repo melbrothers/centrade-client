@@ -43,8 +43,6 @@ class MyApp extends App {
 
   render() {
     const { Component, pageProps, store } = this.props;
-    console.log('page props', this.props);
-
     return (
       <React.Fragment>
         <Head>

@@ -9,3 +9,5 @@ export const selectLoading = createSelector([selectProduct], (product) => produc
 export const selectCurrentCategories = createSelector([selectProduct], (product) => product.categoryList);
 
 export const selectCurrentProducts = createSelector([selectProduct], (product) => product.products);
+
+export const selectCurrentProductsPageView = createSelector([selectProduct], (product) => product.pageView);

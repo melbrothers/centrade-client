@@ -2,6 +2,8 @@ import ProductActionTypes from './product.types';
 
 const INITIAL_STATE = {
   categoryList: null,
+  products: null,
+  pageView: null,
   error: null,
   loading: false
 };
@@ -12,6 +14,8 @@ const productReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         categoryList: null,
+        products: null,
+        pageView: null,
         error: null,
         loading: true
       }
@@ -19,8 +23,16 @@ const productReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         products: null,
+        pageView: null,
         error: null,
         loading: true
+      }
+    case ProductActionTypes.GET_PRODUCTS_PAGE:
+      return {
+        ...state,
+        pageView: action.payload,
+        error: null,
+        loading: false
       }
     case ProductActionTypes.GET_CATEGORY_SUCCESS:
       return {
@@ -40,6 +52,7 @@ const productReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         categoryList: null,
+        pageView: null,
         error: action.payload,
         loading: false
       }
@@ -47,6 +60,7 @@ const productReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         products: null,
+        pageView: null,
         error: action.payload,
         loading: false
       }
