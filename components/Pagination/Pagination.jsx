@@ -42,9 +42,13 @@ const Pagination = ({ pageView, getProductListByPageStart }) => {
           <LastPageIcon />
         </Fab> : null
       }
-      <Link href={pageView && pageView['@id'].replace('/api', '')} className='current-page-link'>
-        <a className='nav-item'>Page {pageView && pageView['@id'].split('=')[1]}</a>
-      </Link>
+      {
+        pageView && pageView['@id'] ?
+          <Link href={pageView && pageView['@id'].replace('/api', '')}>
+            <a className='nav-item'>Page {pageView && pageView['@id'].split('=')[1]}</a>
+          </Link> : null
+      }
+
     </div >
   )
 };
