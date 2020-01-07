@@ -9,16 +9,21 @@ import LastPageIcon from '@material-ui/icons/LastPage';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 
+import Router from 'next/router';
+import Link from 'next/link';
+
 import './pagination.styles.scss';
 
 const Pagination = ({ pageView, getProductListByPageStart }) => {
   const handlePageNavClick = (navUrl) => {
+    let querparam = navUrl.replace('/api', '');
+    Router.push(`${querparam}`, `${querparam}`, { shallow: true });
     getProductListByPageStart(navUrl);
   }
   return (
     < div className='pagination' >
       {
-        pageView && pageView['hydra:first'] ? <Fab aria-label='first' className='pagination-nav' onClick={() => handlePageNavClick(pageView['hydra:first'])}>
+        pageView && pageView['hydra:first'] ? <Fab disabled={pageView && pageView['@id'] === pageView['hydra:first']} aria-label='first' className='pagination-nav' onClick={() => handlePageNavClick(pageView['hydra:first'])}>
           <FirstPageIcon />
         </Fab> : null
       }
@@ -33,10 +38,13 @@ const Pagination = ({ pageView, getProductListByPageStart }) => {
         </Fab> : null
       }
       {
-        pageView && pageView['hydra:last'] ? <Fab aria-label='last' className='pagination-nav' onClick={() => handlePageNavClick(pageView['hydra:last'])}>
+        pageView && pageView['hydra:last'] ? <Fab disabled={pageView && pageView['@id'] === pageView['hydra:last']} aria-label='last' className='pagination-nav' onClick={() => handlePageNavClick(pageView['hydra:last'])}>
           <LastPageIcon />
         </Fab> : null
       }
+      <Link href={pageView && pageView['@id'].replace('/api', '')} className='current-page-link'>
+        <a className='nav-item'>Page {pageView && pageView['@id'].split('=')[1]}</a>
+      </Link>
     </div >
   )
 };

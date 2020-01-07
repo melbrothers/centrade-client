@@ -1,6 +1,12 @@
+@import '../../assets/variables';
 .pagination {
    display: flex;
    align-items: center;
    justify-content: space-evenly;
    margin-top: 15px;
+   .current-page-link {
+      .nav-item {
+        color: $light-blue;
+      }
+   }
 }
