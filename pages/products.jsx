@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 
+import Userheader from '../components/UserHeader/UserHeader';
 import Subheader from '../components/Subheader/Subheader';
 import Searchbox from '../components/Searchbox/Searchbox';
 import ProductFilter from '../components/ProductFilter/ProductFilter';
@@ -49,6 +50,7 @@ const Products = ({ currentUser, getCategoryListStart, getProductListStart, curr
 
   return (
     <div className='products'>
+      <Userheader />
       <Subheader />
       <Container className='products-section'>
         <Typography variant='h5' component="h3" gutterBottom>Home</Typography>
