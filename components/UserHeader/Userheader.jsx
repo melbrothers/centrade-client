@@ -6,7 +6,6 @@ import Container from '@material-ui/core/Container';
 import TuneIcon from '@material-ui/icons/Tune';
 import Typography from '@material-ui/core/Typography';
 import NotificationsNoneIcon from '@material-ui/icons/NotificationsNone';
-import Fab from '@material-ui/core/Fab';
 
 import './userheader.styles.scss';
 
