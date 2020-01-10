@@ -5,9 +5,9 @@ import { getRefreshToken } from '../user/user.util';
 import ProductActionTypes from './product.types';
 import { getCategorySuccess, getCategoryFailure, getProductsSuccess, getProductsFailure, getProductsPage } from './product.actions';
 
-export function* getCategories({ payload: { token } }) {
+export function* getCategories() {
   try {
-    const categories = yield getCategoryList(token, 1);
+    const categories = yield getCategoryList(1);
     if (categories && categories.data['hydra:member']) {
       yield put(getCategorySuccess(categories.data['hydra:member']));
     } else {
@@ -22,10 +22,10 @@ export function* getCategories({ payload: { token } }) {
   }
 }
 
-export function* getProducts({ payload: { token } }) {
+export function* getProducts() {
   try {
     const queryParams = window.location.search.slice(1);
-    const products = yield getProductList(token, queryParams, 1);
+    const products = yield getProductList(queryParams, 1);
     if (products && products.data['hydra:member']) {
       yield put(getProductsSuccess(products.data['hydra:member']));
       yield put(getProductsPage(products.data['hydra:view']));

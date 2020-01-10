@@ -1,15 +1,11 @@
 import api from '../../src/api';
-export const getCategoryList = async (token, pageNumber) => {
+export const getCategoryList = async (pageNumber) => {
   const requestUrl = `/api/categories?page=${pageNumber}`;
-  return api.get(requestUrl, {
-    // headers: {
-    //   Authorization: `Bearer ${token}`
-    // }
-  });
+  return api.get(requestUrl);
 }
 
 
-export const getProductList = async (token, categoryfilterQuery = '', pageNumber) => {
+export const getProductList = async (categoryfilterQuery = '', pageNumber) => {
   const requestUrl = `/api/products?${categoryfilterQuery}&page=${pageNumber}`;
   return api.get(requestUrl);
 }

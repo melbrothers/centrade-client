@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import MuiLink from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 
-import Header from '../components/Header/Header.provider';
+import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 import SectionBox from '../components/SectionBox/SectionBox';
 
 import '../styles/index.styles.scss';
 
-export default function Index() {
+const Index = () => {
   useEffect(() => {
     document.body.classList.remove('signin-page');
     document.body.classList.remove('signup-page');
@@ -63,3 +62,5 @@ export default function Index() {
     </div>
   );
 }
+
+export default Index;

@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import { Provider } from 'react-redux';
 import withRedux from 'next-redux-wrapper';
@@ -54,7 +54,9 @@ class MyApp extends App {
           <CssBaseline />
           <Provider store={store}>
             <SnackbarProvider maxSnack={3} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
-              <Component {...pageProps} />
+              <PersistGate persistor={store.__PERSISTOR}>
+                <Component {...pageProps} />
+              </PersistGate>
             </SnackbarProvider>
           </Provider>
         </ThemeProvider>

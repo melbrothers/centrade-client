@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import { signOutStart } from '../../redux/user/user.actions';
-import { selectCurrentUser } from '../../redux/user/user.selectors';
 import Link from 'next/link';
 import './header.styles.scss';
 import ShoppingCartOutlined from '@material-ui/icons/ShoppingCartOutlined';
 
 const Header = ({ currentUser, signOutStart }) => {
+  console.log(currentUser);
+  useEffect(() => {
+    currentUser = { 'user_token': localStorage.getItem('user_token'), 'refresh_token': localStorage.getItem('user_refresh_token') };
+  }, [currentUser]);
   return (
     <div className='header'>
       {
@@ -53,7 +57,7 @@ const Header = ({ currentUser, signOutStart }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = dispatch => ({

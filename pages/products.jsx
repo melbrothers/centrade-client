@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { selectCurrentUser } from '../redux/user/user.selectors';
 import { selectCurrentCategories, selectCurrentProducts, selectCurrentProductsPageView } from '../redux/product/product.selectors';
 
 import Container from '@material-ui/core/Container';
@@ -38,15 +37,14 @@ function TabPanel(props) {
   );
 }
 
-const Products = ({ currentUser, getCategoryListStart, getProductListStart, currentCategories, currentProducts, currentProductsPageView }) => {
-  const [value, setValue] = React.useState(0);
+const Products = ({ getCategoryListStart, getProductListStart, currentCategories, currentProducts, currentProductsPageView }) => {
   useEffect(() => {
     async function runProducts() {
-      await getCategoryListStart(currentUser);
-      await getProductListStart(currentUser);
+      await getCategoryListStart();
+      await getProductListStart();
     }
     runProducts();
-  }, [currentUser]);
+  }, []);
 
   return (
     <div className='products'>
@@ -73,7 +71,6 @@ const Products = ({ currentUser, getCategoryListStart, getProductListStart, curr
 };
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
   currentCategories: selectCurrentCategories,
   currentProducts: selectCurrentProducts,
   currentProductsPageView: selectCurrentProductsPageView
