@@ -20,7 +20,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import './productFilter.styles.scss';
 
-const ProductFilter = ({ categories, currentUser, getProductListStart, getCategoryListStart }) => {
+const ProductFilter = ({ categories, getProductListStart, getCategoryListStart }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const [checkedChildren, setCheckedChildren] = useState([]);
@@ -78,7 +78,7 @@ const ProductFilter = ({ categories, currentUser, getProductListStart, getCatego
 
   const handleRouterComplete = async (url) => {
     if (url.indexOf('category.id') > -1) {
-      await getProductListStart(currentUser);
+      await getProductListStart();
     }
     Router.events.off('routeChangeComplete', handleRouterComplete);
   }
@@ -155,8 +155,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getCategoryListStart: (token) => dispatch(getCategoryStart({ token })),
-  getProductListStart: (token) => dispatch(getProductsStart({ token }))
+  getCategoryListStart: () => dispatch(getCategoryStart()),
+  getProductListStart: () => dispatch(getProductsStart())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductFilter);

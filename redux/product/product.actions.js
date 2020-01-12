@@ -1,8 +1,7 @@
 import ProductActionTypes from './product.types';
 
-export const getCategoryStart = token => ({
-  type: ProductActionTypes.GET_CATEGORY_START,
-  payload: token
+export const getCategoryStart = () => ({
+  type: ProductActionTypes.GET_CATEGORY_START
 });
 
 export const getCategorySuccess = categoryList => ({
@@ -15,9 +14,8 @@ export const getCategoryFailure = error => ({
   payload: error
 });
 
-export const getProductsStart = (token) => ({
-  type: ProductActionTypes.GET_PRODUCTS_START,
-  payload: token
+export const getProductsStart = () => ({
+  type: ProductActionTypes.GET_PRODUCTS_START
 });
 
 export const getProductsSuccess = products => ({

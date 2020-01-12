@@ -66,7 +66,6 @@ MyDocument.getInitialProps = async ctx => {
     });
 
   const initialProps = await Document.getInitialProps(ctx);
-
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.

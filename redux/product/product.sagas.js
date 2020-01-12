@@ -15,8 +15,8 @@ export function* getCategories() {
     }
   } catch (error) {
     if (error.response.status === 401) {
-      const userToken = localStorage.getItem('user_token');
-      const refreshToken = yield getRefreshToken(userToken);
+      const userRefreshToken = localStorage.getItem('user_refresh_token');
+      const refreshToken = yield getRefreshToken(userRefreshToken);
     }
     yield put(getCategoryFailure(error));
   }
