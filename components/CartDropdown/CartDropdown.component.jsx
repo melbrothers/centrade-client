@@ -1,4 +1,6 @@
 import React from 'react';
+import Router from 'next/router'
+
 import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -25,7 +27,7 @@ const CartDropdown = ({ cartItems, dispatch }) => (
       color='primary'
       className='cart-dropdown-btn'
       onClick={() => {
-        history.push('/checkout');
+        Router.push('/checkout');
         dispatch(toggleCartHidden());
       }}
     >
