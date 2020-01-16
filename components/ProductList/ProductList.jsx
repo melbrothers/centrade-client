@@ -1,4 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+
+import { addItem } from '../../redux/cart/cart.actions';
+
 import Avatar from '@material-ui/core/Avatar';
 import { Typography, Grid, ButtonGroup, Button, Card } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
@@ -7,7 +11,7 @@ import RemoveIcon from '@material-ui/icons/Remove';
 
 import './productList.styles.scss';
 
-const ProductList = ({ products }) => {
+const ProductList = ({ products, addItem }) => {
   const [counter, setCounter] = useState(0);
 
   const onClickHandleAdd = product => {
@@ -26,7 +30,7 @@ const ProductList = ({ products }) => {
   return (
     <div className='product-list'>
       {
-        products.map((product, index) => {
+        products.map((product) => {
           return (
             <Card className='product-intro' key={product.id}>
               <Avatar className='product-logo' alt="product image" src={product.logo} />
@@ -44,7 +48,7 @@ const ProductList = ({ products }) => {
               </Grid>
               <div className='quantity'>
                 {/* <Typography variant='subtitle2' component='h6'>Quantity</Typography> */}
-                <ButtonGroup aria-label="outlined primary button group">
+                <ButtonGroup aria-label="primary button group">
                   {/* <Button onClick={() => onClickHandleMinus(product)}>
                     <RemoveIcon />
                   </Button>
@@ -52,11 +56,12 @@ const ProductList = ({ products }) => {
                     product.counter
                   }&nbsp;
                   </Button> */}
-                  <Button onClick={() => onClickHandleAdd(product)} color='primary' endIcon={<AddIcon />}>
+                  <Button onClick={() => addItem(product)} variant="contained" color='primary' endIcon={<AddIcon />}>
                     Add to cart
                   </Button>
                 </ButtonGroup>
               </div>
+
             </Card>
           )
         })
@@ -65,4 +70,8 @@ const ProductList = ({ products }) => {
   );
 }
 
-export default ProductList;
+const mapDispatchToProps = dispatch => ({
+  addItem: item => dispatch(addItem(item))
+});
+
+export default connect(null, mapDispatchToProps)(ProductList);

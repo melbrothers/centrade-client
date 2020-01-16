@@ -35,7 +35,7 @@ const Userheader = ({ currentUser, hidden }) => (
         <CartIcon />
         {hidden ? null : <CartDropdown />}
         {
-          currentUser ? (<Avatar alt="Remy Sharp" src="https://i.pinimg.com/originals/0c/85/63/0c8563921572c3e89ec4ef779460595b.jpg" className='user-avatar' />) : (<Avatar alt="Remy Sharp" src="/avatar-default.png" className='user-avatar' />)
+          currentUser ? (<Avatar alt="Remy Sharp" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1vRC9KD2b4nC-2_UkBofIWrezbVBzcXAwvzqn1U7h9rY236l6Qw&s" className='user-avatar' />) : (<Avatar alt="Remy Sharp" src="/avatar-default.png" className='user-avatar' />)
         }
 
       </div>
