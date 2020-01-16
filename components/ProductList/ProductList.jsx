@@ -44,7 +44,7 @@ const ProductList = ({ products }) => {
               </Grid>
               <div className='quantity'>
                 {/* <Typography variant='subtitle2' component='h6'>Quantity</Typography> */}
-                <ButtonGroup aria-label="outlined primary button group">
+                <ButtonGroup aria-label="primary button group">
                   {/* <Button onClick={() => onClickHandleMinus(product)}>
                     <RemoveIcon />
                   </Button>
@@ -52,11 +52,12 @@ const ProductList = ({ products }) => {
                     product.counter
                   }&nbsp;
                   </Button> */}
-                  <Button onClick={() => onClickHandleAdd(product)} color='primary' endIcon={<AddIcon />}>
+                  <Button onClick={() => onClickHandleAdd(product)} variant="contained" color='primary' endIcon={<AddIcon />}>
                     Add to cart
                   </Button>
                 </ButtonGroup>
               </div>
+
             </Card>
           )
         })
