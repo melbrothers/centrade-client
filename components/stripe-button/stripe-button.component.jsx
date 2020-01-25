@@ -25,7 +25,7 @@ const StripeCheckoutButton = ({ price }) => {
   }
   return (
     <StripeCheckout
-      label="Pay Now"
+      label="Place Order"
       name="Jason's React ECommerce Platform"
       billingAddress
       shippingAddress
