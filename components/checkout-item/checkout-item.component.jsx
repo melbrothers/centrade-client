@@ -8,7 +8,6 @@ import Button from '@material-ui/core/Button';
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
 
-
 import {
   clearItemFromCart,
   addItem,
@@ -17,8 +16,8 @@ import {
 
 import './checkout-item.styles.scss';
 
-const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
-  const { name, imageUrl, price, quantity } = cartItem;
+const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem, no }) => {
+  const { id, name, imageUrl, price, quantity } = cartItem;
   return (
     <div className='checkout-item'>
       <Grid container
@@ -26,7 +25,7 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem }) => {
         justify="center"
         alignItems="center">
         <Grid item xs={2}>
-          <Typography variant='body1' component='p'>1</Typography>
+          <Typography variant='body1' component='p'>{no}</Typography>
         </Grid>
         <Grid item xs={2}>
           <img src={imageUrl} alt='item' />

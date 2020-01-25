@@ -39,7 +39,7 @@ const CheckoutPage = ({ cartItems, total }) => (
               index === 0 ? <div className='checkout-header'>
                 <Grid container spacing={3} alignItems='center' justify="center">
                   <Grid item xs={2}>
-                    <Typography className='checkout-header-text'><Box fontWeight={500}>NO.</Box></Typography>
+                    <Typography className='checkout-header-text'><Box fontWeight={500}>No.</Box></Typography>
                   </Grid>
                   <Grid item xs={2}>
                     <Typography className='checkout-header-text'><Box fontWeight={500}>Product</Box></Typography>
@@ -60,7 +60,7 @@ const CheckoutPage = ({ cartItems, total }) => (
               </div> : null
             }
 
-            <CheckoutItem key={cartItem.id} cartItem={cartItem} />
+            <CheckoutItem key={cartItem.id} cartItem={cartItem} no={index + 1} />
           </React.Fragment>
         ))
       ))}
