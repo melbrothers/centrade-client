@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import Router from 'next/router';
 import { createStructuredSelector } from 'reselect';
 
 import { selectCurrentCategories, selectCurrentProducts, selectCurrentProductsPageView } from '../redux/product/product.selectors';

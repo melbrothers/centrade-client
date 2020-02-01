@@ -1,7 +1,7 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { signInWithEmailAndPassword, signUpWithEmailAndPassword } from './user.util';
 import UserActionTypes from './user.types';
 import { signInSuccess, signInFailure, signOutSuccess, signOutFailure, signUpSuccess, signUpFailure, signOutStart } from './user.actions';
+import { signInWithEmailAndPassword, signUpWithEmailAndPassword } from './user.util';
 
 export function* signInWithEmail({ payload: { email, password } }) {
   try {

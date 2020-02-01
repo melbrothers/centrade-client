@@ -14,13 +14,10 @@ export const signInSuccess = user => ({
   payload: user
 });
 
-export const signInFailure = error => {
-  console.log(error);
-  return ({
-    type: UserActionTypes.SIGN_IN_FAILURE,
-    payload: error
-  })
-};
+export const signInFailure = error => ({
+  type: UserActionTypes.SIGN_IN_FAILURE,
+  payload: error
+});
 
 export const emailSignInStart = emailAndPassword => ({
   type: UserActionTypes.EMAIL_SIGN_IN_START,
