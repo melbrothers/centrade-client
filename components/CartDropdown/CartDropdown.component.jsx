@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import CartItem from '../CartItem/CartItem.component';
 import { selectCartItemsByProvider } from '../../redux/cart/cart.selectors';
 import { toggleCartHidden } from '../../redux/cart/cart.actions.js';
 

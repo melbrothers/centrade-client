@@ -1,0 +1,29 @@
+.paper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 20px;
+}
+
+.quote-header {
+  padding: 15px 0;
+}
+
+.quote-text {
+  width: 100%;
+  border: 1px solid #dedede;
+  min-height: 30vh;
+  border-radius: 5px;;
+  padding: 15px;
+  margin-bottom: 25px;
+}
+
+.item-pictures {
+  .item-pic {
+    border: 1px solid #dedede;
+    margin: 5px;
+  }
+}

@@ -14,6 +14,7 @@ import Subheader from '../components/Subheader/Subheader';
 import Searchbox from '../components/Searchbox/Searchbox';
 import ProductFilter from '../components/ProductFilter/ProductFilter';
 import ProductList from '../components/ProductList/ProductList';
+import Footer from '../components/Footer/Footer';
 
 import { getCategoryStart, getProductsStart } from '../redux/product/product.actions';
 import '../styles/products.styls.scss';
@@ -36,8 +37,6 @@ function TabPanel(props) {
     </Typography>
   );
 }
-
-
 
 const Products = ({ getCategoryListStart, getProductListStart, currentCategories, currentProducts, currentProductsPageView }) => {
   useEffect(() => {
@@ -68,6 +67,7 @@ const Products = ({ getCategoryListStart, getProductListStart, currentCategories
           </Grid>
         </div>
       </Container>
+      <Footer />
     </div>
   )
 };

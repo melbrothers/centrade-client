@@ -23,22 +23,18 @@ import {
   selectCartTotal
 } from '../redux/cart/cart.selectors';
 
-import '../styles/checkout.styles.scss';
 import Subheader from '../components/Subheader/Subheader';
+import Footer from '../components/Footer/Footer';
+import '../styles/checkout.styles.scss';
 
 const CheckoutPage = ({ cartItems, total, placeOrdersStart }) => {
-  const placeOrders = (event) => {
-    console.log('cart items for order', cartItems);
-    Object.keys(cartItems).map(key => {
-      placeOrdersStart(cartItems[key]);
-    });
+  const placeOrders = (items) => {
+    placeOrdersStart(items);
   }
 
   const getSubTotal = shopItems => {
-    console.log('shop items', shopItems);
     let total = 0;
     shopItems.map((shopItem) => {
-      console.log(total);
       total = parseFloat(total) + parseFloat(shopItem.price);
     });
     return total;
@@ -104,10 +100,11 @@ const CheckoutPage = ({ cartItems, total, placeOrdersStart }) => {
                       <span>${getSubTotal(cartItems[key])}</span>
                     </div>
                     <div className='place-order-container'>
-                      <Button variant="contained" color="primary" onClick={placeOrders}>Place order</Button>
+                      <Button variant="contained" color="primary" onClick={() => placeOrders(cartItems[key])}>Place order</Button>
                     </div>
                   </div>
                 </div>
+
               ))
             }
           </Card>
@@ -124,7 +121,7 @@ const CheckoutPage = ({ cartItems, total, placeOrdersStart }) => {
 
         </Card>
       }
-
+      <Footer />
     </div>
   )
 };

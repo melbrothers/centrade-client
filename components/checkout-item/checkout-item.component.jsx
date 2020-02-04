@@ -50,6 +50,7 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem, no }) => {
           </div>
         </Grid>
       </Grid>
+
     </div>
   );
 };

@@ -22,10 +22,10 @@ const OrderTable = ({ orderItems }) => (
         </TableRow>
       </TableHead>
       <TableBody>
-        {rows.map(row => (
-          <TableRow key={row.name}>
+        {orderItems.map(item => (
+          <TableRow key={item.id}>
             <TableCell component="th" scope="row">
-              {row.name}
+              {item.product.name}
             </TableCell>
             <TableCell align="right">{row.calories}</TableCell>
             <TableCell align="right">{row.fat}</TableCell>

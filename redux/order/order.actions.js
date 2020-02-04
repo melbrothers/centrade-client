@@ -15,5 +15,19 @@ export const placeOrderFailure = error => ({
   payload: error
 });
 
+export const getOrdersStart = () => ({
+  type: OrderActionTypes.GET_ORDERS_START
+});
+
+export const getOrdersSuccess = orders => ({
+  type: OrderActionTypes.GET_ORDERS_SUCCESS,
+  payload: orders
+});
+
+export const getOrdersFailure = error => ({
+  type: OrderActionTypes.GET_ORDERS_FAILURE,
+  payload: error
+});
+
 
 

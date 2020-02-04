@@ -1,7 +1,8 @@
 import OrderActionTypes from './order.types';
 
 const INITIAL_STATE = {
-  order_items: [],
+  ordered_items: [],
+  orders_all: [],
   error: null,
   loading: false
 };
@@ -9,23 +10,38 @@ const INITIAL_STATE = {
 const orderReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case OrderActionTypes.PLACE_ORDER_START:
+    case OrderActionTypes.GET_ORDERS_START:
       return {
         ...state,
-        order_items: [],
+        ordered_items: [],
         error: null,
         loading: true
       }
     case OrderActionTypes.PLACE_ORDER_SUCCESS:
       return {
         ...state,
-        order_items: action.payload,
+        ordered_items: action.payload,
+        error: null,
+        loading: false
+      }
+    case OrderActionTypes.GET_ORDERS_SUCCESS:
+      return {
+        ...state,
+        orders_all: action.payload,
         error: null,
         loading: false
       }
     case OrderActionTypes.PLACE_ORDER_FAILURE:
       return {
         ...state,
-        order_items: [],
+        ordered_items: [],
+        error: action.payload,
+        loading: false
+      }
+    case OrderActionTypes.GET_ORDERS_FAILURE:
+      return {
+        ...state,
+        orders_all: [],
         error: action.payload,
         loading: false
       }

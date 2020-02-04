@@ -1,5 +1,10 @@
 import api from '../../src/api';
 
+export const getLastOrders = () => {
+  const getOrdersUrl = '/api/orders';
+
+}
+
 export const placeOrder = async (cartItems) => {
   const placeOrderUrl = '/api/orders';
   const orderItems = [];
