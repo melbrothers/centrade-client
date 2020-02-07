@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 
 import RemoveIcon from '@material-ui/icons/Remove';
 import AddIcon from '@material-ui/icons/Add';
+import ClearIcon from '@material-ui/icons/Clear';
 
 import {
   clearItemFromCart,
@@ -45,10 +46,11 @@ const CheckoutItem = ({ cartItem, clearItem, addItem, removeItem, no }) => {
         </Grid>
         <Grid item xs={2}>
           <div className='remove-btn-container' onClick={() => clearItem(cartItem)}>
-            &#10005;
-       </div>
+            <ClearIcon className='remove-icon' />
+          </div>
         </Grid>
       </Grid>
+
     </div>
   );
 };

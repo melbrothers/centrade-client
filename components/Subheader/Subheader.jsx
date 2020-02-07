@@ -40,6 +40,15 @@ const Subheader = () => {
           </Link>
         </Grid>
 
+        {/* <Grid item xs={12} lg='auto' className='subheader-item'>
+          <Link href='/orders' >
+            <a className={`subheader-item-link ${router.pathname === '/orders' ? 'active' : null}`}>
+              <LocalMallIcon />
+              Orders
+          </a>
+          </Link>
+        </Grid> */}
+
         <Grid item xs={12} lg='auto' className='subheader-item'>
           <Link href='/quote' >
             <a className={`subheader-item-link ${router.pathname === '/quote' ? 'active' : null}`}>

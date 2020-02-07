@@ -1,7 +1,7 @@
 import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { signInWithEmailAndPassword, signUpWithEmailAndPassword } from './user.util';
 import UserActionTypes from './user.types';
 import { signInSuccess, signInFailure, signOutSuccess, signOutFailure, signUpSuccess, signUpFailure, signOutStart } from './user.actions';
+import { signInWithEmailAndPassword, signUpWithEmailAndPassword } from './user.util';
 
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
@@ -10,7 +10,7 @@ export function* signInWithEmail({ payload: { email, password } }) {
     if (signInResult && signInResult.data && signInResult.data.token) {
       localStorage.setItem('user_token', signInResult.data.token);
       localStorage.setItem('user_refresh_token', signInResult.data.refresh_token);
-      yield put(signInSuccess({ 'token': signInResult.data.token, 'refresh_token': signInResult.data.refresh_token }));
+      yield put(signInSuccess({ 'token': signInResult.data.token, 'refresh_token': signInResult.data.refresh_token, 'user': signInResult.data.user }));
     }
   } catch (error) {
     console.log(error);

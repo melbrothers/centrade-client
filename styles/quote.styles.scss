@@ -1,0 +1,59 @@
+.paper {
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 20px;
+  overflow-y: auto;
+}
+
+.quote-header {
+  padding: 15px 0;
+}
+
+.quote-content {
+  // display: flex;
+  // flex-direction: column;
+  // align-items: center;
+  position: relative;
+  border-bottom: 1px solid #dedede;
+  padding: 0 0 30px;
+  width: 100%;
+
+  .add-item-image-btn {
+    position: absolute;
+    right: 20px;
+    top: 80%;
+  }
+}
+
+.quote-text {
+  width: 100%;
+  border: 1px solid #dedede;
+  min-height: 30vh;
+  border-radius: 5px;;
+  padding: 15px;
+  margin-bottom: 25px;
+}
+
+.item-pictures {
+  .item-pic {
+    border: 1px solid #dedede;
+    margin: 5px;
+  }
+}
+.shop-selector-container,
+.deliver-selector-container {
+  width: 100%;
+  margin-bottom: 25px!important;
+}
+// .shop-selector,.delivery-selector {
+//   width: 100%;
+// }
+
+.shop-selector-label {
+  font-size: 14px;
+}
+
+.confirm-btn {
+  margin-right: 15px!important;
+}
+

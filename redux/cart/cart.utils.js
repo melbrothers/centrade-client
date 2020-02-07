@@ -29,3 +29,7 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) => {
       : cartItem
   );
 };
+
+export const clearItemsFormCartByShop = (cartItems, shopKey) => {
+  return cartItems.filter(cartItem => cartItem.supplier['@id'] !== shopKey);
+}
