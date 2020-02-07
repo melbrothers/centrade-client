@@ -33,9 +33,10 @@ const CheckoutPage = ({ cartItems, total, placeOrdersStart }) => {
   }
 
   const getSubTotal = shopItems => {
+    console.log('shop items', shopItems);
     let total = 0;
     shopItems.map((shopItem) => {
-      total = parseFloat(total) + parseFloat(shopItem.price);
+      total = total + parseFloat(shopItem.price) * parseFloat(shopItem.quantity);
     });
     return total;
   }
