@@ -1,0 +1,18 @@
+
+
+.item-pictures {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  .item-pic {
+    width: 150px;
+    height: 150px;
+    border: 1px solid #dedede;
+    margin: 5px;
+  }
+}
+
+
+.hidden {
+  display: none;
+}
