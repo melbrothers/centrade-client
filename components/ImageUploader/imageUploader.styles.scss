@@ -1,9 +1,13 @@
 
-
+.image-uploader {
+  width: 100%;
+  min-height: 100px;
+}
 .item-pictures {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  flex-wrap: wrap;
   .item-pic {
     width: 150px;
     height: 150px;

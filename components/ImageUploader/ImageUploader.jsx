@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import Fab from '@material-ui/core/Fab';
+import { connect } from 'react-redux';
+
+import { create_blob } from '../../redux/quote/quote.util';
+
+import { setQuoteImages } from '../../redux/quote/quote.actions';
 
 import AddIcon from '@material-ui/icons/Add';
 
 import './imageUploader.styles.scss';
 
-const ImageUploader = () => {
-  // const [imageUrls, setImageUrls] = useState([]);
+const ImageUploader = ({ saveUploadImages }) => {
   const [uploadedImages, setUploadedImages] = useState({ images: [] });
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const onLoadFileChange = event => {
-    const url = URL.createObjectURL(event.target.files[0]);
-    // imageUrls.push(url);
-    // setImageUrls(imageUrls);
-    uploadedImages.images.push(url)
-    setUploadedImages({ images: uploadedImages.images });
+    if (event.target.files[0]) {
+      const sFile = event.target.files[0];
+      const url = URL.createObjectURL(sFile);
+      setSelectedFile(sFile);
+      uploadedImages.images.push(url);
+      setUploadedImages({ images: uploadedImages.images });
+    }
   };
-
 
   return (
     < div className='image-uploader' >
@@ -33,7 +39,7 @@ const ImageUploader = () => {
         className="upload-image hidden"
         id="raised-button-file"
         type="file"
-        onChange={onLoadFileChange}
+        onChange={() => onLoadFileChange(event)}
       />
       <label htmlFor="raised-button-file">
         <Fab aria-label="add" className="add-item-image-btn" variant="round" component="span">
@@ -44,4 +50,8 @@ const ImageUploader = () => {
   )
 };
 
-export default ImageUploader;
+const mapDispatchToProps = dispatch => ({
+  saveUploadImages: images => dispatch(setQuoteImages(images)),
+});
+
+export default connect(null, mapDispatchToProps)(ImageUploader);

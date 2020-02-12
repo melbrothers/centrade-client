@@ -37,14 +37,20 @@ const names = [
 ];
 
 const Quote = () => {
-  const [deliveryWay, setDeliveryWay] = useState('1');
-  const [selectedShop, setSelectedShop] = useState([]);
+  const [quote, setQuote] = useState({ deliveryWay: 1, selectedShop: [], quoteDescription: '', images: [] });
+  const { deliveryWay, selectedShop, quoteDescription } = quote;
+
   const handleDeliveryChange = event => {
-    setDeliveryWay(event.target.value);
+    setQuote({ ...quote, deliveryWay: event.target.value });
   }
 
   const handleShopChange = event => {
-    setSelectedShop(event.target.value);
+    setQuote({ ...quote, selectedShop: event.target.value });
+  };
+
+  const handleQuoteDescriptionChange = event => {
+    const desc = event.target.value;
+    setQuote({ ...quote, quoteDescription: desc });
   };
 
 
@@ -57,9 +63,8 @@ const Quote = () => {
         <form id='quote-form'>
           <Paper variant='outlined' elevation={3} className='paper' >
             <Box className='quote-content'>
-              <TextareaAutosize aria-label="quote description" placeholder="Type here..." className='quote-text' />
+              <TextareaAutosize aria-label="quote description" placeholder="Type here..." className='quote-text' value={quoteDescription} onChange={handleQuoteDescriptionChange} />
               <ImageUploader />
-
             </Box>
             <Box mt={3}>
               <Typography variant='h6' component='h6'>Send to:</Typography>
