@@ -15,7 +15,17 @@ export const saveQuoteFailure = error => ({
   payload: error
 });
 
-export const setQuoteImages = images => ({
-  type: QuoteActionTypes.SET_QUOTE_IMAGES,
-  payload: images
+export const uploadImageStart = image => ({
+  type: QuoteActionTypes.UPLOAD_QUOTE_IMAGE_START,
+  payload: image
+});
+
+export const uploadImageSuccess = image => ({
+  type: QuoteActionTypes.UPLOAD_QUOTE_IMAGE_SUCCESS,
+  payload: image
+});
+
+export const uploadImageFailure = error => ({
+  type: QuoteActionTypes.UPLOAD_QUOTE_IMAGE_FAILURE,
+  payload: error
 });
