@@ -27,25 +27,7 @@ import "../styles/quote.styles.scss";
 import { saveQuoteStart } from "../redux/quote/quote.actions";
 import { getSuppliersStart } from "../redux/supplier/supplier.actions";
 
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder"
-];
-
-const Quote = ({
-  uploadedImages,
-  saveQuote,
-  getSupplierStart,
-  suppliersData
-}) => {
+const Quote = ({ uploadedImages, saveQuote, suppliersData }) => {
   const getImageString = () => {
     const imageStrings = [];
     if (uploadedImages.length > 0) {
@@ -55,18 +37,25 @@ const Quote = ({
     }
     return imageStrings;
   };
-
+  const [deliveryWay, setDeliveryWay] = useState(0);
+  const [isValid, setIsValid] = useState(true);
   const [quote, setQuote] = useState({
-    // deliveryWay: 1,
     suppliers: [],
     description: "",
     images: getImageString()
   });
+  useEffect(() => {
+    if (quote.description.length !== 0 && quote.suppliers.length !== 0) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [quote]);
 
-  const { deliveryWay, suppliers, description } = quote;
+  const { suppliers, description } = quote;
 
   const handleDeliveryChange = event => {
-    setQuote({ ...quote, deliveryWay: event.target.value });
+    setDeliveryWay(event.target.value);
   };
 
   const handleShopChange = event => {
@@ -78,6 +67,15 @@ const Quote = ({
     setQuote({ ...quote, description: desc });
   };
   console.log(suppliersData);
+
+  const saveQuotes = quote => {
+    console.log(quote);
+    if (quote.description.length !== 0 && quote.suppliers.length !== 0) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  };
   return (
     <div className="quote-page">
       <Userheader />
@@ -160,7 +158,8 @@ const Quote = ({
               <Button
                 variant="contained"
                 className="confirm-btn"
-                onClick={() => saveQuote(quote)}
+                onClick={() => saveQuotes(quote)}
+                disabled={!isValid}
               >
                 Confirm
               </Button>
